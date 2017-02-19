@@ -1,5 +1,11 @@
 var log4js = require('log4js');
 
+var fs = require('fs');
+// 判断日志目录是否存在，不存在时创建日志目录
+if(!fs.existsSync('logs')){
+    fs.mkdirSync('logs')
+}
+
 // 加载配置文件
 log4js.configure({
     "appenders": [  
