@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="石雯茜">
+    <title>管理员登录</title>
+    <link href="../css/admin.css" rel="stylesheet">
+    <script src="../js/plugins/jquery.js"></script>
+    <script src="../js/plugins/jquery.cookie.js"></script>
+</head>
+<body class="loginpage">
+    <div class="loginbox">
+    	<div class="loginboxinner">
+            <div class="logo">
+            	<h1 class="logo"><span>旅游信息网</span></h1>
+				<span class="slogan">后台管理系统</span>
+            </div><!--logo-->
+            <br clear="all" /><br />
+            <div class="loginerr">
+				<div class="loginmsg">{{message}}</div>
+            </div><!--nousername-->
+           
+            <form id="login" action="#" method="post">
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="username" id="username" placeholder="Username"/>
+                    </div>
+                </div>
+                <div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password" id="password" placeholder="Password"/>
+                    </div>
+                </div>
+                <button>登录</button>
+                <div class="keep"><input type="checkbox" id="checkbox"/> 记住密码</div>
+            </form>
+        </div><!--loginboxinner-->
+    </div><!--loginbox-->
+    <script src="../js/admin/login.js"></script>
+</body>
+</html>

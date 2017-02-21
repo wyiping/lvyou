@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npm install",
     "start": "node server.js"
   },
   "keywords": [
@@ -13,6 +14,7 @@
   "author": "石雯茜",
   "license": "ISC",
   "dependencies": {
+    "art-template": "^3.1.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",

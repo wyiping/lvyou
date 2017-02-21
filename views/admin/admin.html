@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="石雯茜">
+    <title>后台管理</title>
+    <link href="../css/admin.css" rel="stylesheet">
+    <script src="../js/plugins/jquery.js"></script>
+    <script src="../js/admin/general.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body class="withvernav">
+<div>
+    <div class="topheader">
+        <div class="left">
+            <h1 class="logo">旅游信息网</h1>
+            <span class="slogan">后台管理系统</span>
+
+            <br clear="all" />
+        </div><!--left-->
+
+        <div class="right">
+            <div class="userinfo">
+            	<img src="../images/thumbs/avatar.png" alt="" />
+                <span>{{petname}}</span>
+            </div><!--userinfo-->
+            <div class="userinfodrop">
+            	<div class="avatar">
+                	<a href=""><img src="../images/thumbs/avatar.png" alt="" /></a>
+                </div><!--avatar-->
+                <div class="userdata">
+                	<h4>{{petname}}</h4>
+                    <span class="email">youremail@yourdomain.com</span>
+                    <ul>
+                    	<li><a href="editprofile.html">编辑资料</a></li>
+                        <li><a href="accountsettings.html">账号设置</a></li>
+                        <li><a href="help.html">帮助</a></li>
+                        <li><a href="logout">退出</a></li>
+                    </ul>
+                </div><!--userdata-->
+            </div><!--userinfodrop-->
+        </div><!--right-->
+    </div><!--topheader-->
+
+    <div class="vernav2 iconmenu">
+        <ul>
+        	<li><a href="#user" class="editor">用户管理</a>
+            	<span class="arrow"></span>
+            	<ul id="user">
+                    <li><a href="#">添加用户</a></li>
+               		<li><a href="#">用户列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#scenic" class="gallery">景点管理</a>
+            	<span class="arrow"></span>
+            	<ul id="scenic">
+                    <li><a href="#">添加景点</a></li>
+               		<li><a href="#">景点列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#other" class="addons">其他页面</a>
+            	<span class="arrow"></span>
+            	<ul id="other">
+               		<li><a href="#">线路管理</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a class="togglemenu"></a>
+        <br /><br />
+    </div><!--leftmenu-->
+
+    <div class="centercontent">
+        <div class="pageheader">
+            <h1 class="pagetitle">欢迎进入后台管理系统</h1>
+            <span class="pagedesc"></span>
+            <!--<ul class="hornav">
+                <li class="current"><a href="#updates">最新更新</a></li>
+                <li><a href="#activities">最近活动</a></li>
+            </ul>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
