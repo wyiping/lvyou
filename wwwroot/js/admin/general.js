@@ -12,7 +12,7 @@ $(document).ready(function(){
 	});
 
 	// 点击菜单	
-	$('.vernav2 > ul li a').each(function(){
+	$('.vernav2 > ul> li > a').each(function(){
 		var url = $(this).attr('href');
 		$(this).click(function(){
 			if($(url).length > 0) {

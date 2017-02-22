@@ -8,6 +8,7 @@
     <title>后台管理</title>
     <link href="../css/admin.css" rel="stylesheet">
     <script src="../js/plugins/jquery.js"></script>
+    <script src="../js/plugins/jquery.validate.js"></script>
     <script src="../js/admin/general.js"></script>
     <style>
         
@@ -15,6 +16,15 @@
 </head>
 <body class="withvernav">
 <div>
+    <script>
+        // 加载网址
+        function LoadUrl(Name, Url) {
+            $(Name).load(Url);
+
+            window.history.pushState(null, null);
+        }
+        
+    </script>
     <div class="topheader">
         <div class="left">
             <h1 class="logo">旅游信息网</h1>
@@ -50,8 +60,8 @@
         	<li><a href="#user" class="editor">用户管理</a>
             	<span class="arrow"></span>
             	<ul id="user">
-                    <li><a href="#">添加用户</a></li>
-               		<li><a href="#">用户列表</a></li>
+                    <li><a href="/admin/user/add">添加用户</a></li>
+               		<li><a href="/admin/users/1/">用户列表</a></li>
                 </ul>
             </li>
             <li><a href="#scenic" class="gallery">景点管理</a>
@@ -82,6 +92,23 @@
             </ul>-->
         </div>
     </div>
+    <script>
+        $('.vernav2 > ul > li > ul a').click(function(){
+            if(navigator.userAgent.match(/mobile/i)){
+                $(this).parent().parent().hide();
+            }
+            var Url = $(this).attr("href");
+            if(Url != '#'){
+                // .centercontent加载点击网站内容
+                LoadUrl('.centercontent',Url);
+                // 阻止a标签跳转
+                return false;
+            }else{
+                // 阻止a标签跳转
+                return false;
+            }
+        });
+    </script>
 </div>
 </body>
 </html>

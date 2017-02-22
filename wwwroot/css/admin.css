@@ -653,11 +653,11 @@ input.hasDatepicker {
 .stdtable thead th.head0, .stdtable tfoot th.head0, .stdtable thead td.head0, .stdtable tfoot td.head0 { background-color: #fcfcfc; }
 .stdtable thead th.head1, .stdtable tfoot th.head1, .stdtable thead td.head1, .stdtable tfoot td.head1 { background-color: #f7f7f7; }
 .stdtable thead th.sorting, .stdtable thead td.sorting { 
-	background-image: url(../images/sort_both.png); background-repeat: no-repeat; background-position: right center; }
+	background-image: url(../images/default/sort_both.png); background-repeat: no-repeat; background-position: right center;cursor: pointer; }
 .stdtable thead th.sorting_asc, .stdtable thead td.sorting_asc { 
-	background-image: url(../images/sort_asc.png); background-repeat: no-repeat; background-position: right 9px; }
+	background-image: url(../images/default/sort_asc.png); background-repeat: no-repeat; background-position: right 9px;cursor: pointer; }
 .stdtable thead th.sorting_desc, .stdtable thead td.sorting_desc  { 
-	background-image: url(../images/sort_desc.png); background-repeat: no-repeat; background-position: right 9px; }
+	background-image: url(../images/default/sort_desc.png); background-repeat: no-repeat; background-position: right 9px;cursor: pointer; }
 .stdtable thead th.nosort { background-image: none !important; }
 .stdtable thead td { font-weight: bold; }
 .stdtable thead td.center { text-align: center; }
@@ -715,7 +715,7 @@ input.hasDatepicker {
 
 /***** 20. STANDARD FORM STYLES *****/
 /************************************/
-form input[type=text] { 
+form input[type=text],form input[type=password] { 
 	padding: 8px 5px; border: 1px solid #ccc; width: 85%; -moz-border-radius: 2px; -webkit-border-radius: 2px; 
 	border-radius: 2px; background: #fcfcfc; vertical-align: middle; -moz-box-shadow: inset 0 1px 3px #ddd; 
 	-webkit-box-shadow: inset 0 1px 3px #ddd; box-shadow: inset 0 1px 3px #ddd; color: #666;
@@ -2092,10 +2092,8 @@ blockquote.bq2 {
 	.slide_content { margin-left: 0; margin-top: 20px; }
 	
 	/* TABLES */
-	#dyntable td:first-child, #dyntable th:first-child,
-	#dyntable td:nth-child(2), #dyntable th:nth-child(2) { display: none; }
-	#dyntable td:nth-child(3), #dyntable th:nth-child(3) { border-left: 1px solid #ddd; }
-	#dyntable2 td:nth-child(2), #dyntable2 th:nth-child(2) { display: none; }
+	#dyntable td:nth-child(3), #dyntable th:nth-child(3),
+	#dyntable td:nth-child(2), #dyntable th:nth-child(2),#dyntable_filter { display: none; }
 	
 	.imagelist li img { width: 270px; }
 }
