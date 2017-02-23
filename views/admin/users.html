@@ -70,7 +70,7 @@
     </div>
 </div>
 <script>
-    var sortDir = 1 // 升序or降序
+    var sortDir = 1 // 升序1 or 降序-1
     var sortProperty = "";
     
     $(document).ready(function(){
@@ -100,19 +100,44 @@
         LoadUrl('.centercontent','/admin/users/'+page+'/'+$("select").val(),{sortProperty,sortDir});
     }
     $('.stdtable tbody a').click(function(){
-        
-        if($(this).data('state') == 'edit'){
-            LoadUrl('.centercontent',$(this).attr("href"))
+        var t = $(this)
+        if(t.data('state') == 'edit'){
+            LoadUrl('.centercontent',t.attr("href"))
         }else{
-            $.get($(this).attr("href"),function(res){
-                if(res.code == 'success'){
-                    alert('删除成功！');
-                    getPage(1);
-                }else{
-                    alert(res.message);
-                }
-            })
-            
+            // jAlert插件
+            $.jAlert({
+            'content': '是否删除？',
+            'btns': [{ 
+                        'text': '确认',
+                        'theme':'green',
+                        'onClick': function(e){
+                            $.get(t.attr("href"),function(res){
+                                if(res.code == 'success'){
+                                    $.jAlert({
+                                        'content': "删除成功",
+                                        'theme': 'green',
+                                        'size': 'md'
+                                    });
+                                    getPage(1);
+                                }else{
+                                    $.jAlert({
+                                        'content': "删除失败",
+                                        'content': res.message,
+                                        'theme':'red'
+                                    });
+                                }
+                            })
+                            return false;
+                        }
+                    },
+                    {
+                        'text': '取消',
+                        'theme':'green',
+                        'onClick':function(e){
+                            return false;
+                        }
+                    }]
+        })
         }
         return false;
     })

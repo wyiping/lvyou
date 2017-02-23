@@ -40,33 +40,32 @@
 </div>
 
 <script>
-    $("form").validate({
-        rules: {
-            username: "required",
-            petname: "required",
-            email: {
-                required: true,
-                email: true,
-            },
-            password: "required",
-            isAdmin: "required"
-        },
-        messages: {
-            username: "请输入用户名",
-            petname: "请输入昵称",
-            email: "请输入正确的email地址",
-            password: "请输入密码",
-            isAdmin: "请选择用户角色"
-        }
-    });
     $(".stdform").submit(function(ev){
         ev.preventDefault()
         var data = $(this).serialize()
         $.post('/admin/user/edit/' + $('#username').data('id'), data, function(res){
             if(res.code == 'success'){
-                LoadUrl('.centercontent','/admin/users/1/');
+                $.jAlert({
+                    'title': '更新成功',
+                    'theme': 'green',
+                    'btns':[ {
+                        'text': '确认',
+                        'theme':'green'
+                    }],
+                    'onClose':function(){
+                        LoadUrl('.centercontent','/admin/users/1/');
+                    }
+                });
             }else{
-                alert(res.message)
+                $.jAlert({
+                    'title': '更新失败',
+                    'content': res.message,
+                    'theme': 'red',
+                    'btns':[ {
+                        'text': '确认',
+                        'theme':'red'
+                    }],
+                });
             }
         })
     });

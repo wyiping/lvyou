@@ -1,10 +1,9 @@
 <div class="pageheader">
     <h1 class="pagetitle">添加用户</h1>
     <span class="pagedesc"></span>
-
     <div class="contentwrapper">
         <div id="validation" class="subcontent">
-            <form class="stdform" novalidate="novalidate">
+            <form class="stdform" action="/admin/user/add" method="post">
                 <p>
                     <label>用户名</label>
                     <span class="field"><input type="text" name="username" id="firstname" class="longinput"></span>
@@ -33,7 +32,7 @@
                 </p>
                 <br>
                 <p class="stdformbutton">
-                    <button class="submit radius2">注册</button>
+                    <button class="submit radius2" type="submit">添加</button>
                 </p>
             </form>
         </div>
@@ -41,6 +40,7 @@
 </div>
 
 <script>
+    // 使用jQuery.validate进行表单验证
     $("form").validate({
         rules: {
             username: "required",
@@ -58,17 +58,41 @@
             email: "请输入正确的email地址",
             password: "请输入密码",
             isAdmin: "请选择用户角色"
+        },
+        submitHandler: function(form){
+            // ajaxSubmit() 用到jQuery.form 插件
+            $("form").ajaxSubmit({
+                url:'/admin/user/add',
+                type:'post',
+                success:function(res){
+                    if(res.code == 'success'){
+                    $.jAlert({
+                            'title': '添加成功',
+                            'theme': 'green',
+                            'btns':[ {
+                                'text': '确认',
+                                'theme':'green'
+                            }],
+                            'onClose':function(){
+                                LoadUrl('.centercontent','/admin/users/1/');
+                            }
+                        });
+                    }else{
+                        $.jAlert({
+                            'title': '添加失败',
+                            'content': res.message,
+                            'theme': 'red',
+                            'btns':[ {
+                                'text': '确认',
+                                'theme':'red'
+                            }],
+                        });
+                    }
+                },
+                error:function(){
+                }
+            });
         }
     });
-    $(".stdform").submit(function(ev){
-        ev.preventDefault()
-        var data = $(this).serialize()
-        $.post('/admin/user/add', data, function(res){
-            if(res.code == 'success'){
-               LoadUrl('.centercontent','/admin/users/1/');
-            }else{
-                alert(res.message)
-            }
-        })
-    });
+    
 </script>
