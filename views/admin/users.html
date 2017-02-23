@@ -26,10 +26,10 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="head0 sorting_asc">用户名</th>
-                        <th class="head1 sorting_desc">昵称</th>
+                        <th class="head0 sorting" data-property="username" data-dir="{{if order.username}}{{order.username}}{{/if}}">用户名</th>
+                        <th class="head1 sorting"  data-property="petname" data-dir="{{if order.petname}}{{order.petname}}{{/if}}">昵称</th>
                         <th class="head0">邮箱</th>
-                        <th class="head1 sorting">身份</th>
+                        <th class="head1 sorting" data-property="isAdmin" data-dir="{{if order.isAdmin}}{{order.isAdmin}}{{/if}}">身份</th>
                         <th class="head0">编辑</th>
                     </tr>
                 </thead>
@@ -50,7 +50,7 @@
                             <td>{{u.petname}}</td>
                             <td>{{u.email}}</td>
                             <td class="center">{{if u.isAdmin}} 管理员 {{else}} 普通用户 {{/if}}</td>
-                            <td><a href="#">修改</a>　　<a href="#" onclick="remove('{{u.username}}')">删除</a></td>
+                            <td><a href="/admin/user/edit/{{u.id}}" data-state="edit">修改</a>　　<a href="/admin/user/remove/{{u.id}}" data-state="delete">删除</a></td>
                         </tr>
                     {{/each}}
                 </tbody>
@@ -70,26 +70,50 @@
     </div>
 </div>
 <script>
+    var sortDir = 1 // 升序or降序
+    var sortProperty = "";
+    
     $(document).ready(function(){
         $("select").change(function(){
             getPage(1);
         });
+        $("#dyntable thead th").each(function(){
+            if($(this).data('dir') == 1 || $(this).data('dir') ==-1){
+                sortProperty = $(this).data('property');
+                sortDir = $(this).data('dir');
+                if(sortDir == 1){
+                    $(this).removeClass('sorting').removeClass('sorting_desc').addClass('sorting_asc');
+                }else{
+                    $(this).removeClass('sorting').removeClass('sorting_asc').addClass('sorting_desc');
+                }
+            }
+        });
+        $("#dyntable thead th").click(function(){
+            sortProperty = $(this).data('property');
+            sortDir *= -1;
+            if(sortProperty){
+                LoadUrl('.centercontent','/admin/users/1/'+$("select").val(),{sortProperty,sortDir});
+            }
+        });
     });
     function getPage(page){
-        LoadUrl('.centercontent','/admin/users/'+page+'/'+$("select").val());
+        LoadUrl('.centercontent','/admin/users/'+page+'/'+$("select").val(),{sortProperty,sortDir});
     }
-    function remove(name){
-        $.post(
-            '/admin/user/remove/' + name,
-            null,
-            function(res){
+    $('.stdtable tbody a').click(function(){
+        
+        if($(this).data('state') == 'edit'){
+            LoadUrl('.centercontent',$(this).attr("href"))
+        }else{
+            $.get($(this).attr("href"),function(res){
                 if(res.code == 'success'){
-                    alert('删除'+name+'成功！');
+                    alert('删除成功！');
                     getPage(1);
                 }else{
                     alert(res.message);
                 }
-            }
-        );
-    }
+            })
+            
+        }
+        return false;
+    })
 </script>

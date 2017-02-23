@@ -19,7 +19,6 @@ var router = express.Router()
 router.post('/register', (req, res) => {
     req.body.isAdmin = false
     new db.User(req.body).save(err => {
-        
         if (err) {
             if(err.code==11000){
                 res.json({ code: 'error' , message:'用户名已存在'})

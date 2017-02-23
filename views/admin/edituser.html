@@ -1,39 +1,38 @@
 <div class="pageheader">
     <h1 class="pagetitle">添加用户</h1>
     <span class="pagedesc"></span>
-
     <div class="contentwrapper">
         <div id="validation" class="subcontent">
             <form class="stdform" novalidate="novalidate">
                 <p>
                     <label>用户名</label>
-                    <span class="field"><input type="text" name="username" id="firstname" class="longinput"></span>
+                    <span class="field"><input type="text" name="username" id="username" class="longinput" readonly="readonly" value="{{user.username}}" data-id="{{user.id}}"></span>
                 </p>
                 <p>
                     <label>昵称</label>
-                    <span class="field"><input type="text" name="petname" id="lastname" class="longinput"></span>
+                    <span class="field"><input type="text" name="petname" id="petname" class="longinput" value="{{user.petname}}"></span>
                 </p>
                 <p>
                     <label>密码</label>
-                    <span class="field"><input type="password" name="password" id="password" class="longinput"></span>
+                    <span class="field"><input type="password" name="password" id="password" class="longinput" value="{{user.password}}"></span>
                 </p>
                 <p>
                     <label>Email</label>
-                    <span class="field"><input type="text" name="email" id="email" class="longinput"></span>
+                    <span class="field"><input type="text" name="email" id="email" class="longinput" value="{{user.email}}"></span>
                 </p>
                 <p>
                     <label>角色</label>
                     <span class="field">
                     <select name="isAdmin" id="isAdmin" class="valid">
                         <option value="">请选择角色</option>
-                        <option value="true">管理员</option>
-                        <option value="false">普通用户</option>
+                        <option value="true" {{user.isAdmin == true ? 'selected' : ''}}>管理员</option>
+                        <option value="false" {{user.isAdmin == false ? 'selected' : ''}}>普通用户</option>
                     </select>
                     </span>
                 </p>
                 <br>
                 <p class="stdformbutton">
-                    <button class="submit radius2">注册</button>
+                    <button class="submit radius2">修改</button>
                 </p>
             </form>
         </div>
@@ -63,9 +62,9 @@
     $(".stdform").submit(function(ev){
         ev.preventDefault()
         var data = $(this).serialize()
-        $.post('/admin/user/add', data, function(res){
+        $.post('/admin/user/edit/' + $('#username').data('id'), data, function(res){
             if(res.code == 'success'){
-               LoadUrl('.centercontent','/admin/users/1/');
+                LoadUrl('.centercontent','/admin/users/1/');
             }else{
                 alert(res.message)
             }
