@@ -3,19 +3,16 @@ const db = require('../modules/db')
 //创建一个路由对象。
 var router = express.Router()
 
-// 获取显示的页数，最多10页
+// 获取显示的页数，最多5页
 function getPages(page, pageCount){
     var pages = [page];
-
     var left = page - 1;
     var right = page + 1;
-
-    // 左右两边各加1个页码,直到页码够10个或左边到1 右边到总页数
-    while(pages.length < 10 && (left >= 1 || right <= pageCount) ) {
+    // 左右两边各加1个页码,直到页码够5个或左边到1 右边到总页数
+    while(pages.length < 5 && (left >= 1 || right <= pageCount) ) {
         if(left > 0) pages.unshift(left--);
         if(right <= pageCount) pages.push(right++);
     }
-
     return pages;
 }
 
@@ -111,12 +108,28 @@ router.get('/users/(:page)?/(:pageSize)?',(req,res)=>{
     })
 })
 router.post('/users/(:page)?/(:pageSize)?',(req,res)=>{
+     // filter 进行搜索的关键字
+    var filter = {};
+    var search = req.body.search;
+    if(search){
+        search = search.trim();
+        if(search.length > 0){
+            filter.username = {
+                // 正则表达式
+                // .表示除回车换行外的任意字符
+                // *表示0个或多个
+                // ?表示可以有也可以没有
+                '$regex': `.*${search}.*?`
+            }
+        }
+    }
     // 排序
     var order = {}
     // 向order中放入一对值,
     // 属性名是:req.body.sortProperty
     // 属性值是:req.body.sortDir
     order[req.body.sortProperty] = req.body.sortDir
+    // 向页面发送当前的排序状态
     var dir =  req.body.sortDir;
 
     var page = req.params.page;
@@ -133,7 +146,7 @@ router.post('/users/(:page)?/(:pageSize)?',(req,res)=>{
         pageSize = 5
     }
     pageSize = parseInt(pageSize);
-    db.User.find().count((err,total)=>{
+    db.User.find(filter).count((err,total)=>{
         if(err){
             console.log(err)
         }else{
@@ -143,8 +156,8 @@ router.post('/users/(:page)?/(:pageSize)?',(req,res)=>{
             page = page < 1 ? 1 :page ;
 
             // select对数据属性进行筛选，属性名之间用空格分隔
-            db.User.find().sort(order).skip((page - 1) * pageSize).limit(pageSize).exec((err,data) =>{
-                res.render('admin/users',{page, pageCount, pageSize, order, pages: getPages(page, pageCount),
+            db.User.find(filter).sort(order).skip((page - 1) * pageSize).limit(pageSize).exec((err,data) =>{
+                res.render('admin/users',{page, pageCount, pageSize, order, search, pages: getPages(page, pageCount),
                     users:data.map(m => {
                     m = m.toObject()
                     m.id = m._id.toString()

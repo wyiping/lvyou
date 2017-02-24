@@ -1,23 +1,22 @@
 <div class="pageheader">
     <h1 class="pagetitle">添加用户</h1>
-    <span class="pagedesc"></span>
     <div class="contentwrapper">
         <div id="validation" class="subcontent">
             <form class="stdform" novalidate="novalidate">
                 <p>
-                    <label>用户名</label>
+                    <label for="username">用户名</label>
                     <span class="field"><input type="text" name="username" id="username" class="longinput" readonly="readonly" value="{{user.username}}" data-id="{{user.id}}"></span>
                 </p>
                 <p>
-                    <label>昵称</label>
+                    <label for="petname">昵称</label>
                     <span class="field"><input type="text" name="petname" id="petname" class="longinput" value="{{user.petname}}"></span>
                 </p>
                 <p>
-                    <label>密码</label>
+                    <label for="password">密码</label>
                     <span class="field"><input type="password" name="password" id="password" class="longinput" value="{{user.password}}"></span>
                 </p>
                 <p>
-                    <label>Email</label>
+                    <label for="email">Email</label>
                     <span class="field"><input type="text" name="email" id="email" class="longinput" value="{{user.email}}"></span>
                 </p>
                 <p>

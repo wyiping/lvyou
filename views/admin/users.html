@@ -1,7 +1,5 @@
 <div class="pageheader">
     <h1 class="pagetitle">用户列表</h1>
-    <span class="pagedesc"></span>
-
     <div class="contentwrapper">
         <div class="dataTables_wrapper" id="dyntable_wrapper">
             <div id="dyntable_length" class="dataTables_length">
@@ -15,7 +13,7 @@
                      条数据
                 </label>
             </div>
-            <div class="dataTables_filter" id="dyntable_filter"><label>Search: <input type="text" placeholder="请输入用户名"></label></div>
+           <div class="dataTables_filter" id="dyntable_filter"><label>搜索: <input type="text" placeholder="请输入用户名" id="search" value="{{search}}"></label></div>
             <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable">
                 <colgroup>
                     <col class="con0">
@@ -70,9 +68,9 @@
     </div>
 </div>
 <script>
-    var sortDir = 1 // 升序1 or 降序-1
-    var sortProperty = "";
-    
+    var sortProperty = ""; // 排序属性
+    var flag; // 用于标识延时执行keyup事件
+    var search = $('#search').val(); // 搜索内容
     $(document).ready(function(){
         $("select").change(function(){
             getPage(1);
@@ -90,14 +88,26 @@
         });
         $("#dyntable thead th").click(function(){
             sortProperty = $(this).data('property');
-            sortDir *= -1;
             if(sortProperty){
-                LoadUrl('.centercontent','/admin/users/1/'+$("select").val(),{sortProperty,sortDir});
+                sortDir *= -1;
+                LoadUrl('.centercontent','/admin/users/1/'+$("select").val(),{sortProperty,sortDir,search});
             }
+        });
+        // 搜索
+        function Search(){
+            clearTimeout(flag);
+            flag = setTimeout(function(){
+                search = $('#search').val();
+                LoadUrl('.centercontent','/admin/users/1/'+$("select").val(),{sortProperty,sortDir,search});
+            },300)
+        }
+        // 搜索框输入内容是触发search()函数
+        $('#search').keyup(function(){
+            Search();
         });
     });
     function getPage(page){
-        LoadUrl('.centercontent','/admin/users/'+page+'/'+$("select").val(),{sortProperty,sortDir});
+        LoadUrl('.centercontent','/admin/users/'+page+'/'+$("select").val(),{sortProperty,sortDir,search});
     }
     $('.stdtable tbody a').click(function(){
         var t = $(this)
