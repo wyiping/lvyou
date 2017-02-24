@@ -45,13 +45,15 @@
         $.post('/admin/user/edit/' + $('#username').data('id'), data, function(res){
             if(res.code == 'success'){
                 $.jAlert({
-                    'title': '更新成功',
+                    'type':'confirm',
+                    'confirmQuestion':'更新成功',
+                    'confirmBtnText':'确认',
+                    'denyBtnText':'关闭',
                     'theme': 'green',
-                    'btns':[ {
-                        'text': '确认',
-                        'theme':'green'
-                    }],
-                    'onClose':function(){
+                    'onConfirm':function(){
+                        LoadUrl('.centercontent','/admin/users/1/');
+                    },
+                    'onDeny':function(){
                         LoadUrl('.centercontent','/admin/users/1/');
                     }
                 });

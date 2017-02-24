@@ -116,17 +116,16 @@
         }else{
             // jAlert插件
             $.jAlert({
-            'content': '是否删除？',
-            'btns': [{ 
-                        'text': '确认',
-                        'theme':'green',
-                        'onClick': function(e){
+            'type':'confirm',
+            'confirmQuestion':'确认删除？',
+            'confirmBtnText':'确认',
+            'denyBtnText':'取消',
+            'onConfirm': function(e){
                             $.get(t.attr("href"),function(res){
                                 if(res.code == 'success'){
                                     $.jAlert({
                                         'content': "删除成功",
                                         'theme': 'green',
-                                        'size': 'md'
                                     });
                                     getPage(1);
                                 }else{
@@ -138,15 +137,10 @@
                                 }
                             })
                             return false;
-                        }
-                    },
-                    {
-                        'text': '取消',
-                        'theme':'green',
-                        'onClick':function(e){
-                            return false;
-                        }
-                    }]
+                        },
+            'onDeny':function(e){
+                return false;
+            }
         })
         }
         return false;

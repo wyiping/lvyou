@@ -142,7 +142,6 @@ router.post('/users/(:page)?/(:pageSize)?',(req,res)=>{
     // 默认每页显示5条数据
     pageSize = pageSize || 5;
     if(pageSize == 'undefined'){
-        console.log('test5')
         pageSize = 5
     }
     pageSize = parseInt(pageSize);
@@ -199,7 +198,6 @@ router.get('/user/edit/:id',(req,res)=>{
     })
 })
 router.post('/user/edit/:id',(req,res)=>{
-    console.log(req.params.id)
     db.User.findByIdAndUpdate(req.params.id, req.body , err =>{
         if(err){
             res.json({code: 'error', message: '系统错误'});
