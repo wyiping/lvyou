@@ -39,6 +39,8 @@
 </div>
 
 <script>
+    // 点击任意位置关闭Alert
+    $.fn.jAlert.defaults.closeOnClick = true;
     // 使用jQuery.validate进行表单验证
     $("form").validate({
         rules: {
@@ -66,12 +68,7 @@
                 success:function(res){
                     if(res.code == 'success'){
                     $.jAlert({
-                            'title': '添加成功',
-                            'theme': 'green',
-                            'btns':[ {
-                                'text': '确认',
-                                'theme':'green'
-                            }],
+                            'content': '添加成功',
                             'onClose':function(){
                                 LoadUrl('.centercontent','/admin/users/1/');
                             }

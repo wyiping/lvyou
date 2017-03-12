@@ -32,5 +32,16 @@ var UserSchema = new Schema({
 // 数据中有哪些属性，属性的类型，属性的默认值，属性的验证等
 var User = mongoose.model('users', UserSchema)
 
+
+// 景点Schema
+var ScenerySchema = new Schema({
+    name:  { type: String, unique: true },
+    position: String,
+    image: String,
+    desc: String
+})
+
+var Scenery = mongoose.model('scenery',ScenerySchema)
+
 // 导出User模块
-module.exports = { User };
+module.exports = { User , Scenery};

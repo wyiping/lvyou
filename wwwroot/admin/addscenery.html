@@ -1,0 +1,74 @@
+<div class="pageheader">
+    <h1 class="pagetitle">添加景点</h1>
+    <div class="contentwrapper">
+        <div id="validation" class="subcontent">
+            <form class="stdform" action="/admin/scenery/add" method="post">
+                <p>
+                    <label for="name">名称</label>
+                    <span class="field"><input type="text" name="name" id="name" class="longinput"></span>
+                </p>
+                <p>
+                    <label for="position">位置</label>
+                    <span class="field"><input type="text" name="position" id="position" class="longinput"></span>
+                </p>
+                <p>
+                    <label for="desc">描述</label>
+                    <span class="field"><input type="text" name="desc" id="desc" class="longinput"></span>
+                </p>
+                
+                <br>
+                <p class="stdformbutton">
+                    <button class="submit radius2" type="submit">添加</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 点击任意位置关闭Alert
+    $.fn.jAlert.defaults.closeOnClick = true;
+    // 使用jQuery.validate进行表单验证
+    $("form").validate({
+        rules: {
+            name: "required",
+            position: "required",
+            desc: "required"
+        },
+        messages: {
+            name: "请输入名称",
+            position: "请输入位置",
+            desc: "请输入描述"
+        },
+        submitHandler: function(form){
+            // ajaxSubmit() 用到jQuery.form 插件
+            $("form").ajaxSubmit({
+                url:'/admin/scenery/add',
+                type:'post',
+                success:function(res){
+                    if(res.code == 'success'){
+                    $.jAlert({
+                            'content': '添加成功',
+                            'onClose':function(){
+                                LoadUrl('.centercontent','/admin/users/1/');
+                            }
+                        });
+                    }else{
+                        $.jAlert({
+                            'title': '添加失败',
+                            'content': res.message,
+                            'theme': 'red',
+                            'btns':[ {
+                                'text': '确认',
+                                'theme':'red'
+                            }],
+                        });
+                    }
+                },
+                error:function(){
+                }
+            });
+        }
+    });
+    
+</script>
