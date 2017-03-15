@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 
 //设置数据库连接地址
-mongoose.connect('mongodb://swq:shiwenqian@123.207.145.243:27017/lvyou')
+mongoose.connect('mongodb://swq:shiwenqian@db.swqian.com:27017/lvyou')
 
 //连接数据库
 var db = mongoose.connection;
