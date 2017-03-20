@@ -24,9 +24,10 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="head0">名称</th>
+                        <th class="head0" style="width: 10%">名称</th>
                         <th class="head1">位置</th>
-                        <th class="head0">描述</th>
+                        <th class="head0" style="width: 35%">summary</th>
+                        <th class="head0" style="width: 35%">content</th>
                         <th class="head1">编辑</th>
                     </tr>
                 </thead>
@@ -34,7 +35,8 @@
                     <tr>
                         <th class="head0">名称</th>
                         <th class="head1">位置</th>
-                        <th class="head0">描述</th>
+                        <th class="head0">summary</th>
+                        <th class="head0">content</th>
                         <th class="head1">编辑</th>
                     </tr>
                 </tfoot>
@@ -44,6 +46,7 @@
                     <tr>
                         <td class="sorting_1">{{s.name}}</td>
                         <td>{{s.location.lat}}{{s.location.lon}}</td>
+                        <td class="center">{{s.summary}}</td>
                         <td class="center">{{s.content}}</td>
                         <td><a href="" data-state="edit">修改</a>　　<a href="" data-state="delete">删除</a></td>
                     </tr>
@@ -64,7 +67,8 @@
     </div>
 </div>
 <script>
-    function getPage(page) {
-        LoadUrl('.centercontent', '/admin/sceneries/' + page + '/' + $("select").val());
-    }
+                                                                               function getPage(page) {
+                                                                                   LoadUrl('.centercontent', '/admin/sceneries/' + page + '/' + $("select").val());
+                                                                               }
+
 </script>
