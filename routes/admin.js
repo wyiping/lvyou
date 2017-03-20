@@ -243,10 +243,34 @@ router.post('/scenery/add', (req, res) => {
 })
 
 // 景点列表
-router.get('/sceneries', (req,res) => {
-    db.Scenery.find((err, data) => {
-        
-    })
+router.get('/sceneries/(:page)?/(:pageSize)?', (req, res) => {
+    var page = req.params.page;
+    page = page || 1;
+    page = parseInt(page);
+    var pageSize = req.params.pageSize;
+    pageSize = pageSize || 5;
+    pageSize = parseInt(pageSize);
+
+    db.Scenery.find().count((err, total) => {
+        if (err) {
+            // err
+        } else {
+            var pageCount = Math.ceil(total / pageSize);
+            page = page > pageCount ? pageCount : page;
+            page = page < 1 ? 1 : page;
+            db.Scenery.find().sort().skip((page - 1) * pageSize).limit(pageSize).exec((err, data) => {
+                res.render('admin/sceneries', {
+                    page, pageCount, pageSize, pages: getPages(page, pageCount),
+                    sceneries: data.map(m => {
+                        m = m.toObject();
+                        m.id = m._id.toString();
+                        delete m._id;
+                        return m;
+                    })
+                });
+            })
+        }
+    });
 })
 
 // 导出路由

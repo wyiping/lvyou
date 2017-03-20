@@ -36,9 +36,12 @@ var User = mongoose.model('users', UserSchema)
 // 景点Schema
 var ScenerySchema = new Schema({
     name:  { type: String, unique: true },
-    position: String,
-    image: String,
-    desc: String
+    location: {
+        lat: String,
+        lon: String
+    } ,
+    summary: String,
+    content: String
 })
 
 var Scenery = mongoose.model('scenery',ScenerySchema)

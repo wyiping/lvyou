@@ -1,0 +1,70 @@
+<div class="pageheader">
+    <h1 class="pagetitle">景点列表</h1>
+    <div class="contentwrapper">
+        <div class="dataTables_wrapper" id="dyntable_wrapper">
+            <div id="dyntable_length" class="dataTables_length">
+                <label>显示 
+                    <select size="1" name="dyntable_length">
+                        <option value="5" {{pageSize == 5 ? 'selected' : ''}}>5</option>
+                        <option value="10" {{pageSize == 10 ? 'selected' : ''}}>10</option>
+                        <option value="15" {{pageSize == 15 ? 'selected' : ''}}>15</option>
+                        <option value="20" {{pageSize == 20 ? 'selected' : ''}}>20</option>
+                    </select>
+                     条数据
+                </label>
+            </div>
+            <div class="dataTables_filter" id="dyntable_filter"><label>搜索: <input type="text" placeholder="请输入用户名" id="search" value="{{search}}"></label></div>
+            <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable">
+                <colgroup>
+                    <col class="con0">
+                    <col class="con1">
+                    <col class="con0">
+                    <col class="con1">
+                    <col class="con0">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="head0">名称</th>
+                        <th class="head1">位置</th>
+                        <th class="head0">描述</th>
+                        <th class="head1">编辑</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th class="head0">名称</th>
+                        <th class="head1">位置</th>
+                        <th class="head0">描述</th>
+                        <th class="head1">编辑</th>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+                    {{each sceneries as s i}}
+                    <tr>
+                        <td class="sorting_1">{{s.name}}</td>
+                        <td>{{s.location.lat}}{{s.location.lon}}</td>
+                        <td class="center">{{s.content}}</td>
+                        <td><a href="" data-state="edit">修改</a>　　<a href="" data-state="delete">删除</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="dataTables_paginate paging_full_numbers" id="dyntable_paginate">
+                <span class="first paginate_button paginate_button_disabled" id="dyntable_first" onclick="getPage(1)">第一页</span>
+                <span class="previous paginate_button paginate_button_disabled" id="dyntable_previous" onclick="getPage('{{page -1}}')">上一页</span>
+                <span>
+                    {{each pages as p}}
+                        <span class="{{if p == page}}paginate_active{{else}}paginate_button{{/if}}" onclick="getPage('{{p}}')">{{p}}</span>                {{/each}}
+                </span>
+                <span class="next paginate_button" id="dyntable_next" onclick="getPage('{{page + 1}}')">下一页</span>
+                <span class="last paginate_button" id="dyntable_last" onclick="getPage('{{pageCount}}')">最后一页</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function getPage(page) {
+        LoadUrl('.centercontent', '/admin/sceneries/' + page + '/' + $("select").val());
+    }
+</script>
