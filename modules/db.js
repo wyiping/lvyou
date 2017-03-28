@@ -30,8 +30,7 @@ var UserSchema = new Schema({
 // 第1个参数：模型的名称，也是数据库中集合的名称
 // 第2个参数：Schema，模式，描述了数据的形状，即
 // 数据中有哪些属性，属性的类型，属性的默认值，属性的验证等
-var User = mongoose.model('users', UserSchema)
-
+var User = mongoose.model('user', UserSchema)
 
 // 景点Schema
 var ScenerySchema = new Schema({
@@ -41,10 +40,11 @@ var ScenerySchema = new Schema({
         lon: String
     } ,
     summary: String,
-    content: String
+    content: String,
+    picList:Array
 })
 
-var Scenery = mongoose.model('scenery',ScenerySchema)
+var Scenery = mongoose.model('scenery',ScenerySchema,'test')
 
 // 导出User模块
 module.exports = { User , Scenery};

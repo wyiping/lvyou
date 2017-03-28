@@ -1,5 +1,8 @@
 const express = require("express")
+// 数据库
 const db = require('../modules/db')
+// 上传组件
+const upload = require('../modules/upload')
 //创建一个路由对象。
 var router = express.Router()
 
@@ -228,7 +231,14 @@ router.get('/user/remove/:id', (req, res) => {
 router.get('/scenery/add', (req, res) => {
     res.redirect('/admin/addscenery.html')
 })
-router.post('/scenery/add', (req, res) => {
+router.post('/scenery/add', upload.array('pic'), (req, res, next) => {
+    var files = req.files;
+    var picList = new Array()
+    for (i = 0; i < files.length; i++){
+        picList.push(files[i].filename)
+    }
+    req.body.picList = picList
+
     new db.Scenery(req.body).save(err => {
         if (err) {
             if (err.code == 11000) {

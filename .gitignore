@@ -2,3 +2,5 @@ node_modules/
 logs/
 .vscode/
 *.log
+wwwroot/images/scenery/
+*.out
