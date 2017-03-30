@@ -15,10 +15,16 @@
                     <label for="content">内容</label>
                     <span class="field"><input type="text" name="content" id="content" class="longinput"></span>
                 </p>
-                <p>
+                <div class="uploader">
                     <label for="pic">图片</label>
-                    <span class="field"><input type="file" name="pic" id="pic" class="longinput"></span>
-                </p>
+                    <div class="addUpload">+</div>
+                    <div class="picList">
+                        <div>
+                            <input type="file" name="pic" size="19" style="display: none;" onchange="imgPreview(this)">
+                            <div class="picture">没有选择文件</div>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <p class="stdformbutton" style="text-align: center;">
                     <button class="submit radius2" type="submit">添加</button>
@@ -43,35 +49,68 @@
             position: "请输入位置",
             desc: "请输入描述"
         },
-        submitHandler: function(form){
+        submitHandler: function (form) {
             // ajaxSubmit() 用到jQuery.form 插件
             $("form").ajaxSubmit({
-                url:'/admin/scenery/add',
-                type:'post',
-                success:function(res){
-                    if(res.code == 'success'){
-                    $.jAlert({
+                url: '/admin/scenery/add',
+                type: 'post',
+                success: function (res) {
+                    if (res.code == 'success') {
+                        $.jAlert({
                             'content': '添加成功',
-                            'onClose':function(){
-                                LoadUrl('.centercontent','/admin/users/1/');
+                            'onClose': function () {
+                                LoadUrl('.centercontent', '/admin/users/1/');
                             }
                         });
-                    }else{
+                    } else {
                         $.jAlert({
                             'title': '添加失败',
                             'content': res.message,
                             'theme': 'red',
-                            'btns':[ {
+                            'btns': [{
                                 'text': '确认',
-                                'theme':'red'
+                                'theme': 'red'
                             }],
                         });
                     }
                 },
-                error:function(){
+                error: function () {
                 }
             });
         }
     });
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+            return;
+        }
 
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function (e) {
+            //获取图片dom
+            var img = document.createElement('img');
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+            $(fileDom).siblings('.picture').html(img);
+        };
+        reader.readAsDataURL(file);
+    }
+    $('.addUpload').click(function () {
+        $('.picList').append('<div><input type="file" name="pic" size="19" style="display:none;" onchange="imgPreview(this)"><div class="picture">没有选择文件</div></div>');
+        return false;
+    });
+    $('.picList').on('click', '.picture', function () {
+        $(this).siblings('input').click();
+    });
 </script>
