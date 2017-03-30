@@ -45,7 +45,7 @@
                     {{each sceneries as s i}}
                     <tr>
                         <td class="sorting_1">{{s.name}}</td>
-                        <td>{{s.location.lat}}{{s.location.lon}}</td>
+                        <td data-lat="{{s.location.lat}}" data-lon="{{s.location.lon}}" class="location"></td>
                         <td class="center">{{s.summary}}</td>
                         <td class="center">{{s.content}}</td>
                         <td><a href="" data-state="edit">修改</a>　　<a href="" data-state="delete">删除</a></td>
@@ -70,5 +70,36 @@
     function getPage(page) {
         LoadUrl('.centercontent', '/admin/sceneries/' + page + '/' + $("select").val());
     }
-
+    function setPostion(){
+        $('.location').each(function(){
+            t = $(this)
+            var i = 0;         
+            for(i = 0; i < l_data.length; i++){
+                if(Number($(t).data('lat')).toFixed(5) == Number(l_data[i].location.lat).toFixed(5)){
+                    $(t).html(l_data[i].formatted_address);
+                }
+            }
+        })
+    }
+    var l_data = new Array();
+    var len = $ (".location").length;
+    $('.location').each(function(i){
+        t = $(this)
+        // if($(this).data("lon") != "" && $(this).data("lat") != ""){
+            $.ajax({
+                type:'get',
+                url:'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+$(t).data('lat')+','+$(t).data('lon')+'&output=json&pois=1&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo',
+                dataType:'jsonp',
+                async: false,
+                success:function(res){
+                    if(res.status == 0){
+                        l_data.push(res.result);
+                    }
+                    if(i == len -1){
+                        setPostion();
+                    }
+                }
+            });
+        // }
+    });
 </script>

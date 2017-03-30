@@ -50,31 +50,45 @@
             desc: "请输入描述"
         },
         submitHandler: function (form) {
-            // ajaxSubmit() 用到jQuery.form 插件
-            $("form").ajaxSubmit({
-                url: '/admin/scenery/add',
-                type: 'post',
-                success: function (res) {
-                    if (res.code == 'success') {
-                        $.jAlert({
-                            'content': '添加成功',
-                            'onClose': function () {
-                                LoadUrl('.centercontent', '/admin/users/1/');
-                            }
-                        });
-                    } else {
-                        $.jAlert({
-                            'title': '添加失败',
-                            'content': res.message,
-                            'theme': 'red',
-                            'btns': [{
-                                'text': '确认',
-                                'theme': 'red'
-                            }],
-                        });
+            var name = $("#name").val();
+            $.ajax({
+                type:'get',
+                url:'http://api.map.baidu.com/geocoder/v2/?address='+name+'&output=json&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo&callback=showLocation',
+                dataType:'jsonp',
+                success:function(data){
+                    var lat = "";
+                    var lon = "";
+                    if(data.status == 0){
+                        lat = data.result.location.lat;
+                        lon = data.result.location.lng;
                     }
-                },
-                error: function () {
+                    // ajaxSubmit() 用到jQuery.form 插件
+                    $("form").ajaxSubmit({
+                        url: '/admin/scenery/add/'+lat+'/'+lon,
+                        type: 'post',
+                        success: function (res) {
+                            if (res.code == 'success') {
+                                $.jAlert({
+                                    'content': '添加成功',
+                                    'onClose': function () {
+                                        LoadUrl('.centercontent', '/admin/users/1/');
+                                    }
+                                });
+                            } else {
+                                $.jAlert({
+                                    'title': '添加失败',
+                                    'content': res.message,
+                                    'theme': 'red',
+                                    'btns': [{
+                                        'text': '确认',
+                                        'theme': 'red'
+                                    }],
+                                });
+                            }
+                        },
+                        error: function () {
+                        }
+                    });
                 }
             });
         }
