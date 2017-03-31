@@ -234,7 +234,7 @@ router.get('/scenery/add', (req, res) => {
 router.post('/scenery/add/(:lat)?/(:lon)?', upload.array('pic'), (req, res, next) => {
     var files = req.files;
     var picList = new Array()
-    for (i = 0; i < files.length; i++){
+    for (i = 0; i < files.length; i++) {
         picList.push(files[i].filename)
     }
     req.body.picList = picList
@@ -287,5 +287,36 @@ router.get('/sceneries/(:page)?/(:pageSize)?', (req, res) => {
     });
 })
 
+// 编辑景点
+router.get('/scenery/edit/:id', (req, res) => {
+    db.Scenery.findById(req.params.id, (err, data) => {
+        if (err) {
+            
+        } else {
+            res.render('admin/editscenery', { scenery:data })
+        }
+    })
+})
+router.post('/scenery/edit/:id', (req, res) => {
+    db.Scenery.findByIdAndUpdate(req.params.id, req.body, err => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误' });
+        }
+        else {
+            res.json({ code: 'success', message: '成功！' });
+        }
+    })
+})
+
+// 删除景点
+router.get('/scenery/del/:id', (req, res) => {
+    db.Scenery.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+            res.json({code:"error",message:"删除失败"})
+        } else {
+            res.json({code:"success",message:"删除成功"})
+        }
+    })
+})
 // 导出路由
 module.exports = router;

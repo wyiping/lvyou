@@ -1,0 +1,49 @@
+<div class="pageheader">
+    <h1 class="pagetitle">编辑景点</h1>
+    <div class="contentwrapper">
+        <div id="validation" class="subcontent">
+            <form class="stdform" action="/admin/scenery/edit/{{scenery.id}}" method="post" enctype="multipart/form-data">
+                <p>
+                    <label for="name">名称</label>
+                    <span class="field"><input type="text" name="name" id="name" class="longinput" value="{{scenery.name}}"></span>
+                </p>
+                <p>
+                    <label for="summary">简介</label>
+                    <span class="field"><textarea cols="80" rows="5" name="summary" id="summary" class="longinput">{{scenery.summary}}</textarea></span>
+                </p>
+                <p>
+                    <label for="content">内容</label>
+                    <span class="field"><textarea cols="80" rows="5" name="content" id="content" class="longinput">{{scenery.content}}</textarea></span>
+                </p>
+                <br>
+                <p class="stdformbutton" style="text-align: center;">
+                    <button class="submit radius2" type="submit">修改</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $.fn.jAlert.defaults.closeOnClick = true;
+    $.fn.jAlert.defaults.closeBtn = false;
+    $('form').submit(function (ev) {
+        ev.preventDefault();
+        $.post($(this).attr('action'), $(this).serialize(), function (res) {
+            if (res.code == 'success') {
+                $.jAlert({
+                    'content': '更新成功',
+                    'closeOnClick': true,
+                    'onClose':function(){
+                        LoadUrl('.centercontent','/admin/sceneries/1/');
+                    }
+                });
+            } else {
+                $.jAlert({
+                    'title': '更新失败',
+                    'content': res.message,
+                    'theme': 'red'
+                });
+            }
+        })
+    })
+</script>

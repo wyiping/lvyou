@@ -48,7 +48,7 @@
                         <td data-lat="{{s.location.lat}}" data-lon="{{s.location.lon}}" class="location"></td>
                         <td class="center">{{s.summary}}</td>
                         <td class="center">{{s.content}}</td>
-                        <td><a href="" data-state="edit">修改</a>　　<a href="" data-state="delete">删除</a></td>
+                        <td><a href="javascript:void(0)" onclick="LoadUrl('.centercontent','/admin/scenery/edit/{{s.id}}')">修改</a>　　<a href="javascript:void(0)" onclick="delScenery('/admin/scenery/del/{{s.id}}')">删除</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -67,6 +67,7 @@
     </div>
 </div>
 <script>
+    $.fn.jAlert.defaults.closeOnClick = true;
     function getPage(page) {
         LoadUrl('.centercontent', '/admin/sceneries/' + page + '/' + $("select").val());
     }
@@ -102,4 +103,34 @@
             });
         // }
     });
+    function delScenery(href){
+        $.jAlert({
+            'type':'confirm',
+            'confirmQuestion':'确认删除？',
+            'confirmBtnText':'确认',
+            'denyBtnText':'取消',
+            'onConfirm': function(e){
+                            $.get(href,function(res){
+                                if(res.code == 'success'){
+                                    $.jAlert({
+                                        'content': "删除成功",
+                                        'theme': 'green',
+                                    });
+                                    getPage(1);
+                                }else{
+                                    $.jAlert({
+                                        'content': "删除失败",
+                                        'content': res.message,
+                                        'theme':'red'
+                                    });
+                                }
+                            })
+                            return false;
+                        },
+            'onDeny':function(e){
+                return false;
+            }
+        })
+        return false;
+    }
 </script>

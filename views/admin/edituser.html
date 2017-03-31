@@ -39,21 +39,16 @@
 </div>
 
 <script>
+    $.fn.jAlert.defaults.closeOnClick = true;
+    $.fn.jAlert.defaults.closeBtn = false;
     $(".stdform").submit(function(ev){
         ev.preventDefault()
-        var data = $(this).serialize()
-        $.post('/admin/user/edit/' + $('#username').data('id'), data, function(res){
+        $.post('/admin/user/edit/' + $('#username').data('id'), $(this).serialize(), function(res){
             if(res.code == 'success'){
                 $.jAlert({
-                    'type':'confirm',
-                    'confirmQuestion':'更新成功',
-                    'confirmBtnText':'确认',
-                    'denyBtnText':'关闭',
-                    'theme': 'green',
-                    'onConfirm':function(){
-                        LoadUrl('.centercontent','/admin/users/1/');
-                    },
-                    'onDeny':function(){
+                    'content':'更新成功',
+                    'closeOnClick':true,
+                    'onClose':function(){
                         LoadUrl('.centercontent','/admin/users/1/');
                     }
                 });
@@ -61,11 +56,7 @@
                 $.jAlert({
                     'title': '更新失败',
                     'content': res.message,
-                    'theme': 'red',
-                    'btns':[ {
-                        'text': '确认',
-                        'theme':'red'
-                    }],
+                    'theme': 'red'
                 });
             }
         })

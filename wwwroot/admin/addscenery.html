@@ -9,11 +9,11 @@
                 </p>
                 <p>
                     <label for="summary">简介</label>
-                    <span class="field"><input type="text" name="summary" id="summary" class="longinput"></span>
+                    <span class="field"><textarea cols="80" rows="5" id="summary" name="summary" class="longinput"></textarea></span>
                 </p>
                 <p>
                     <label for="content">内容</label>
-                    <span class="field"><input type="text" name="content" id="content" class="longinput"></span>
+                    <span class="field"><textarea cols="80" rows="5" id="content" name="content" class="longinput"></textarea></span>
                 </p>
                 <div class="uploader">
                     <label for="pic">图片</label>
@@ -71,7 +71,7 @@
                                 $.jAlert({
                                     'content': '添加成功',
                                     'onClose': function () {
-                                        LoadUrl('.centercontent', '/admin/users/1/');
+                                        LoadUrl('.centercontent', '/admin/sceneries/1/');
                                     }
                                 });
                             } else {
