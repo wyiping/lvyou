@@ -48,13 +48,13 @@
     $("form").validate({
         rules: {
             name: "required",
-            position: "required",
-            desc: "required"
+            address: "required",
+            summary: "required",
         },
         messages: {
             name: "请输入名称",
-            position: "请输入位置",
-            desc: "请输入描述"
+            address: "请输入地址",
+            summary: "请输入简介"
         },
         submitHandler: function (form) {
             // ajaxSubmit() 用到jQuery.form 插件
