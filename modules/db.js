@@ -38,13 +38,14 @@ var ScenerySchema = new Schema({
     location: {
         lat: String,
         lon: String
-    } ,
+    },
+    address: String,
     summary: String,
     content: String,
     picList:Array
 })
 
-var Scenery = mongoose.model('scenery',ScenerySchema)
+var Scenery = mongoose.model('scenery',ScenerySchema, 'test')
 
 // 导出User模块
 module.exports = { User , Scenery};

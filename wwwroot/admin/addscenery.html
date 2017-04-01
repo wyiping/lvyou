@@ -3,9 +3,16 @@
     <div class="contentwrapper">
         <div id="validation" class="subcontent">
             <form class="stdform" action="/admin/scenery/add" method="post" enctype="multipart/form-data">
+                <p class="js_msgerr" style="text-align: center; color: red;display: none;">This is an error message.</p>
                 <p>
                     <label for="name">名称</label>
-                    <span class="field"><input type="text" name="name" id="name" class="longinput"></span>
+                    <span class="field"><input type="text" name="name" id="name" class="longinput" onchange="setLocation(this)"></span>
+                </p>
+                <p>
+                    <label for="address">地址</label>
+                    <span class="field"><input type="text" name="address" id="address" class="longinput" onchange="setLocation(this)"></span>
+                    <input type="hidden" name="lat">
+                    <input type="hidden" name="lon">
                 </p>
                 <p>
                     <label for="summary">简介</label>
@@ -50,45 +57,31 @@
             desc: "请输入描述"
         },
         submitHandler: function (form) {
-            var name = $("#name").val();
-            $.ajax({
-                type:'get',
-                url:'http://api.map.baidu.com/geocoder/v2/?address='+name+'&output=json&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo&callback=showLocation',
-                dataType:'jsonp',
-                success:function(data){
-                    var lat = "";
-                    var lon = "";
-                    if(data.status == 0){
-                        lat = data.result.location.lat;
-                        lon = data.result.location.lng;
-                    }
-                    // ajaxSubmit() 用到jQuery.form 插件
-                    $("form").ajaxSubmit({
-                        url: '/admin/scenery/add/'+lat+'/'+lon,
-                        type: 'post',
-                        success: function (res) {
-                            if (res.code == 'success') {
-                                $.jAlert({
-                                    'content': '添加成功',
-                                    'onClose': function () {
-                                        LoadUrl('.centercontent', '/admin/sceneries/1/');
-                                    }
-                                });
-                            } else {
-                                $.jAlert({
-                                    'title': '添加失败',
-                                    'content': res.message,
-                                    'theme': 'red',
-                                    'btns': [{
-                                        'text': '确认',
-                                        'theme': 'red'
-                                    }],
-                                });
+            // ajaxSubmit() 用到jQuery.form 插件
+            $("form").ajaxSubmit({
+                url: '/admin/scenery/add',
+                type: 'post',
+                success: function (res) {
+                    if (res.code == 'success') {
+                        $.jAlert({
+                            'content': '添加成功',
+                            'onClose': function () {
+                                LoadUrl('.centercontent', '/admin/sceneries/1/');
                             }
-                        },
-                        error: function () {
-                        }
-                    });
+                        });
+                    } else {
+                        $.jAlert({
+                            'title': '添加失败',
+                            'content': res.message,
+                            'theme': 'red',
+                            'btns': [{
+                                'text': '确认',
+                                'theme': 'red'
+                            }],
+                        });
+                    }
+                },
+                error: function () {
                 }
             });
         }
@@ -127,4 +120,37 @@
     $('.picList').on('click', '.picture', function () {
         $(this).siblings('input').click();
     });
+    $('input').focus(function(){
+        $(".js_msgerr").hide();
+    })
+    function setLocation(t){
+        var name = $(t).val();
+        $.ajax({
+            type:'get',
+            url:'http://api.map.baidu.com/geocoder/v2/?address='+name+'&output=json&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo&callback=showLocation',
+            dataType:'jsonp',
+            success:function(data){
+                if(data.status == 0){
+                    $('input[name=lat]').val(data.result.location.lat);
+                    $('input[name=lon]').val(data.result.location.lng);
+                    getAddress();
+                }else{
+                    $(".js_msgerr").html("未找到相关景点，请输入地址").show();
+                }
+            }
+        });
+    }
+    function getAddress(){
+        $.ajax({
+            type:'get',
+            url:'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+$('input[name=lat]').val()+','+$('input[name=lon]').val()+'&output=json&pois=1&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo',
+            dataType:'jsonp',
+            async: false,
+            success:function(res){
+                if(res.status == 0){
+                    $("#address").val(res.result.formatted_address);
+                }
+            }
+        });
+    }
 </script>

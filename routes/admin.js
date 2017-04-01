@@ -231,7 +231,7 @@ router.get('/user/remove/:id', (req, res) => {
 router.get('/scenery/add', (req, res) => {
     res.redirect('/admin/addscenery.html')
 })
-router.post('/scenery/add/(:lat)?/(:lon)?', upload.array('pic'), (req, res, next) => {
+router.post('/scenery/add', upload.array('pic'), (req, res) => {
     var files = req.files;
     var picList = new Array()
     for (i = 0; i < files.length; i++) {
@@ -240,8 +240,8 @@ router.post('/scenery/add/(:lat)?/(:lon)?', upload.array('pic'), (req, res, next
     req.body.picList = picList
 
     var location = {};
-    location.lat = req.params.lat || "";
-    location.lon = req.params.lon || "";
+    location.lat = req.body.lat || "";
+    location.lon = req.body.lon || "";
     req.body.location = location;
     new db.Scenery(req.body).save(err => {
         if (err) {
