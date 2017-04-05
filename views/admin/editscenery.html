@@ -2,10 +2,16 @@
     <h1 class="pagetitle">编辑景点</h1>
     <div class="contentwrapper">
         <div id="validation" class="subcontent">
-            <form class="stdform" action="/admin/scenery/edit/{{scenery.id}}" method="post" enctype="multipart/form-data">
+            <form class="stdform" action="" method="post" enctype="multipart/form-data">
                 <p>
                     <label for="name">名称</label>
                     <span class="field"><input type="text" name="name" id="name" class="longinput" value="{{scenery.name}}"></span>
+                </p>
+                <p>
+                    <label for="address">地址</label>
+                    <span class="field"><input type="text" name="address" id="address" class="longinput" value="{{scenery.address}}" onchange="setLocation(this)"></span>
+                    <input type="hidden" name="lat" value="{{scenery.location.lat}}">
+                    <input type="hidden" name="lon" value="{{scenery.location.lon}}">
                 </p>
                 <p>
                     <label for="summary">简介</label>
@@ -15,6 +21,20 @@
                     <label for="content">内容</label>
                     <span class="field"><textarea cols="80" rows="5" name="content" id="content" class="longinput">{{scenery.content}}</textarea></span>
                 </p>
+                <div class="uploader">
+                    <label for="pic">图片</label>
+                    <div class="addUpload">ADD</div>
+                    <div class="picList">
+                        {{each scenery.picList as pic i}}
+                            <div>
+                                <span class="close blades heavy"></span>
+                                <input type="file" name="pic" size="19" style="display: none;" onchange="imgPreview(this)">
+                                <input type="hidden" name="pics" value="{{pic}}">
+                                <div class="picture"><img src="/images/scenery/{{pic}}"/></div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
                 <br>
                 <p class="stdformbutton" style="text-align: center;">
                     <button class="submit radius2" type="submit">修改</button>
@@ -28,22 +48,101 @@
     $.fn.jAlert.defaults.closeBtn = false;
     $('form').submit(function (ev) {
         ev.preventDefault();
-        $.post($(this).attr('action'), $(this).serialize(), function (res) {
-            if (res.code == 'success') {
-                $.jAlert({
-                    'content': '更新成功',
-                    'closeOnClick': true,
-                    'onClose':function(){
-                        LoadUrl('.centercontent','/admin/sceneries/1/');
-                    }
-                });
-            } else {
-                $.jAlert({
-                    'title': '更新失败',
-                    'content': res.message,
-                    'theme': 'red'
-                });
+        $("form").ajaxSubmit({
+            url: '/admin/scenery/edit/{{scenery.id}}',
+            type: 'post',
+            success: function (res) {
+                if (res.code == 'success') {
+                    $.jAlert({
+                        'content': '更新成功',
+                        'closeOnClick': true,
+                        'onClose':function(){
+                            LoadUrl('.centercontent','/admin/sceneries/1/');
+                        }
+                    });
+                } else {
+                    $.jAlert({
+                        'title': '更新失败',
+                        'content': res.message,
+                        'theme': 'red'
+                    });
+                }
+            },
+            error: function () {
             }
-        })
+        });
     })
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+            return;
+        }
+        // 
+        $(fileDom).siblings('input[name=picList]').remove();
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function (e) {
+            //获取图片dom
+            var img = document.createElement('img');
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+            $(fileDom).siblings('.picture').html(img);
+        };
+        reader.readAsDataURL(file);
+    }
+    $('.addUpload').click(function () {
+        $('.picList').append('<div><span class="close blades heavy"></span><input type="file" name="pic" size="19" style="display:none;" onchange="imgPreview(this)"><div class="picture">没有选择文件</div></div>');
+        return false;
+    });
+    $('.picList').on('click', '.picture', function () {
+        $(this).siblings('input').click();
+    });
+    $('.picList').on('click','.close',function(){
+        $(this).parent().hide("normal",function(){
+            $(this).remove();
+        });
+    });
+    $('input').focus(function(){
+        $(".js_msgerr").hide();
+    })
+    function setLocation(t){
+        var name = $(t).val();
+        $.ajax({
+            type:'get',
+            url:'http://api.map.baidu.com/geocoder/v2/?address='+name+'&output=json&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo&callback=showLocation',
+            dataType:'jsonp',
+            success:function(data){
+                if(data.status == 0){
+                    $('input[name=lat]').val(data.result.location.lat);
+                    $('input[name=lon]').val(data.result.location.lng);
+                    getAddress();
+                }else{
+                    $(".js_msgerr").html("未找到相关景点，请输入地址").show();
+                }
+            }
+        });
+    }
+    function getAddress(){
+        $.ajax({
+            type:'get',
+            url:'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+$('input[name=lat]').val()+','+$('input[name=lon]').val()+'&output=json&pois=1&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo',
+            dataType:'jsonp',
+            async: false,
+            success:function(res){
+                if(res.status == 0){
+                    $("#address").val(res.result.formatted_address);
+                }
+            }
+        });
+    }
 </script>

@@ -297,7 +297,20 @@ router.get('/scenery/edit/:id', (req, res) => {
         }
     })
 })
-router.post('/scenery/edit/:id', (req, res) => {
+router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
+    var files = req.files;
+    var picList = undefined;
+    if (typeof req.body.pics == 'string') {
+        picList = new Array();
+        picList.push(req.body.pics);
+    } else {
+        picList = req.body.pics || new Array()
+    }
+    for (i = 0; i < files.length; i++) {
+        picList.push(files[i].filename);
+    }
+    
+    req.body.picList = picList
     db.Scenery.findByIdAndUpdate(req.params.id, req.body, err => {
         if (err) {
             res.json({ code: 'error', message: '系统错误' });

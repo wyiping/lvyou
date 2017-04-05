@@ -27,6 +27,7 @@
                     <div class="addUpload">+</div>
                     <div class="picList">
                         <div>
+                            <span class="close blades heavy"></span>
                             <input type="file" name="pic" size="19" style="display: none;" onchange="imgPreview(this)">
                             <div class="picture">没有选择文件</div>
                         </div>
@@ -114,11 +115,16 @@
         reader.readAsDataURL(file);
     }
     $('.addUpload').click(function () {
-        $('.picList').append('<div><input type="file" name="pic" size="19" style="display:none;" onchange="imgPreview(this)"><div class="picture">没有选择文件</div></div>');
+        $('.picList').append('<div><span class="close blades heavy"></span><input type="file" name="pic" size="19" style="display:none;" onchange="imgPreview(this)"><div class="picture">没有选择文件</div></div>');
         return false;
     });
     $('.picList').on('click', '.picture', function () {
         $(this).siblings('input').click();
+    });
+    $('.picList').on('click','.close',function(){
+        $(this).parent().hide("normal",function(){
+            $(this).remove();
+        });
     });
     $('input').focus(function(){
         $(".js_msgerr").hide();

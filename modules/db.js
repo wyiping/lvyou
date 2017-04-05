@@ -45,7 +45,7 @@ var ScenerySchema = new Schema({
     picList:Array
 })
 
-var Scenery = mongoose.model('scenery',ScenerySchema, 'test')
+var Scenery = mongoose.model('scenery',ScenerySchema)
 
 // 导出User模块
 module.exports = { User , Scenery};
