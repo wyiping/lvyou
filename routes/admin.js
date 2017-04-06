@@ -6,6 +6,7 @@ const upload = require('../modules/upload')
 //创建一个路由对象。
 var router = express.Router()
 
+const fs = require('fs')
 // 获取显示的页数，最多5页
 function getPages(page, pageCount) {
     var pages = [page];
@@ -300,6 +301,7 @@ router.get('/scenery/edit/:id', (req, res) => {
 router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
     var files = req.files;
     var picList = undefined;
+    var delPic = req.body.del_pics;
     if (typeof req.body.pics == 'string') {
         picList = new Array();
         picList.push(req.body.pics);
@@ -316,13 +318,30 @@ router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
             res.json({ code: 'error', message: '系统错误' });
         }
         else {
-            res.json({ code: 'success', message: '成功！' });
+            // 删除本地文件
+            if (typeof delPic != 'undefined') {
+                if (typeof delPic == 'string') {
+                    fs.unlinkSync('wwwroot/images/scenery/' + delPic);
+                } else {
+                    for (var i = 0; i < delPic.length; i++){
+                        fs.unlinkSync('wwwroot/images/scenery/' + delPic[i]);
+                    }
+                }
+            }
+            res.json({ code: "success", message: "更新成功" })
         }
     })
 })
 
 // 删除景点
 router.get('/scenery/del/:id', (req, res) => {
+    db.Scenery.findById(req.params.id, (err, data) => {
+        if (data.picList) {
+            for (var i = 0; i < data.picList.length; i++){
+                fs.unlinkSync('wwwroot/images/scenery/' + data.picList[i]);
+            }
+        }
+    })
     db.Scenery.findByIdAndRemove(req.params.id, err => {
         if (err) {
             res.json({code:"error",message:"删除失败"})

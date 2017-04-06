@@ -27,7 +27,7 @@
                     <div class="picList">
                         {{each scenery.picList as pic i}}
                             <div>
-                                <span class="close blades heavy"></span>
+                                <span class="close blades heavy" data-name="{{pic}}"></span>
                                 <input type="file" name="pic" size="19" style="display: none;" onchange="imgPreview(this)">
                                 <input type="hidden" name="pics" value="{{pic}}">
                                 <div class="picture"><img src="/images/scenery/{{pic}}"/></div>
@@ -108,6 +108,9 @@
         $(this).siblings('input').click();
     });
     $('.picList').on('click','.close',function(){
+        if($(this).siblings('input[type=hidden]').length){
+            $('.picList').append('<input type="hidden" name="del_pics" value="'+$(this).data('name')+'">')
+        }
         $(this).parent().hide("normal",function(){
             $(this).remove();
         });
