@@ -52,6 +52,12 @@ router.post('/login', (req, res) => {
         }
     })
 })
+
+// 会员注销
+router.get('/logout', (req, res) => {
+    res.clearCookie('petname');
+    res.render('index')
+})
 // 会员中心
 
 

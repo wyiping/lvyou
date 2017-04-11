@@ -1,0 +1,48 @@
+<div class="container">
+    <!-- navigation -->
+    <nav class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <div class="w3-logo">
+                    <h1><a href="#">Road trip</a></h1>
+                </div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a class="scroll" href="#wonder-notes">游记</a></li>
+                <li><a class="scroll" href="#gallery">图集</a></li>
+                <li><a class="scroll" href="#introduce">介绍</a></li>
+                <li><a href="javascript:void(0)" id="login">登录</a></li>
+                <li class="dropdown" id="petname" style="display:none;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/">会员中心</a></li>
+                        <li><a href="/user/logout">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div class="clearfix"></div>
+    <!-- //navigation -->
+</div>
+<script src="/js/plugins/jquery.cookie.js"></script>
+<script>
+    var petname = $.cookie("petname");
+    if (petname){
+        $('#login').hide();
+        $('#petname').children('a').html(petname);
+        $('#petname').show();
+    }
+</script>
+<script src="/js/index.js"></script>

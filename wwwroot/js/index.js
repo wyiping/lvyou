@@ -42,6 +42,7 @@ $(function(){
                     $.post('/user/login', data, function(res){
                         if(res.code == 'success'){
                             alert.closeAlert();
+                            window.location.href = '/';
                         }else{
                             $.jAlert({
                                 'content':res.message

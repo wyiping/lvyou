@@ -722,6 +722,9 @@ span.w3-line {
 	    background: #ff4c4c;
     padding: 20px 20px;
 }
+.w3ls-news-section-grid{
+	margin-bottom: 20px;
+}
 .w3ls-news-section-grid img{
 	width:100%;
 }
@@ -774,6 +777,9 @@ img.readmore {
     font-size: 12.5px;
     line-height: 25px;
     margin-bottom: 20px;
+	height: 100px;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 .info a {
 	color: #fff;
@@ -1079,10 +1085,7 @@ footer{
 		width: 50%;
 		float: left;
 	}
-	.w3ls-news-section-grid:nth-child(3) {
-		margin-left:25%;
-		margin-top:5%;
-	}
+
 	.contact-section-head {
 		margin-bottom: 40px;
 	}
@@ -1369,9 +1372,7 @@ footer{
 		float: none;
 		margin: 5% auto;
 	}
-	.w3ls-news-section-grid:nth-child(3) {
-		margin-left: 15%;
-	}	
+
 	.testimonial {
 		padding: 0em 0 4em;
 	}
@@ -1456,9 +1457,6 @@ footer{
 	}
 	.agileits-news-section-head {
 		margin-bottom: 3em;
-	}
-	.w3ls-news-section-grid:nth-child(3) {
-		margin-left: 10%;
 	}
 	.special-left p, .spl-bot-right p {
 		margin: 15px auto 0;
@@ -1605,9 +1603,7 @@ footer{
 	.w3ls-news-section-grid {
 		width: 100%;
 	}
-	.w3ls-news-section-grid:nth-child(3) {
-		margin-left: 0;
-	}
+
 	.w3ls-address {
 		padding: 0;
 	}

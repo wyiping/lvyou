@@ -336,19 +336,22 @@ router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
 // 删除景点
 router.get('/scenery/del/:id', (req, res) => {
     db.Scenery.findById(req.params.id, (err, data) => {
-        if (data.picList) {
-            for (var i = 0; i < data.picList.length; i++){
-                fs.unlinkSync('wwwroot/images/scenery/' + data.picList[i]);
+        if (data.hasOwnProperty('picList')) {
+            if (data.picList) {
+                for (var i = 0; i < data.picList.length; i++){
+                    fs.unlinkSync('wwwroot/images/scenery/' + data.picList[i]);
+                }
             }
         }
+        db.Scenery.findByIdAndRemove(req.params.id, err => {
+            if (err) {
+                res.json({code:"error",message:"删除失败"})
+            } else {
+                res.json({code:"success",message:"删除成功"})
+            }
+        })
     })
-    db.Scenery.findByIdAndRemove(req.params.id, err => {
-        if (err) {
-            res.json({code:"error",message:"删除失败"})
-        } else {
-            res.json({code:"success",message:"删除成功"})
-        }
-    })
+
 })
 // 导出路由
 module.exports = router;

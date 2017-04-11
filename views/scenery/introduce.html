@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="agileits-news-section-head text-center">
+        <h3 class="agileits_head">景点介绍</h3>
+        <span class="w3-line"></span>
+    </div>
+    <div class="news-section-grids">
+        {{ each sceneries as s i}}
+        <div class="col-md-4 w3ls-news-section-grid">
+            <img src="/images/scenery/{{s.picList[0]}}" alt="" />
+            <div class="info">
+                <h5>{{s.name}}</h5>
+                <p>{{s.summary}}</p>
+                <a class="more" href="#" data-toggle="modal" data-target="#myModal{{i}}">{{if s.content}}查看{{else}}　{{/if}}</a>
+                <!-- Modal-->
+                <div class="modal fade" id="myModal{{i}}" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{s.name}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{s.content}}</p>
+                            </div>
+                        </div>
+                        <!-- //Modal content-->
+                    </div>
+                </div>
+                <!-- //Modal-->
+            </div>
+        </div>
+        {{/each}}
+        <div class="clearfix"></div>
+    </div>
+</div>
