@@ -4,11 +4,12 @@
     <div class="w3l_gallery_grids">
         <div class="bs-example bs-example-tabs wthree_example_tab" role="tabpanel" data-example-id="togglable-tabs">
             <div class="w3l_gallery_grids1">
+                {{each pics as pic i}}
                 <div class="col-md-4 w3l_gallery_grid">
                     <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g1.jpg" title="Road trip">
+                        <a class="group1" href="/images/scenery/{{pic}}" title="Road trip">
                             <div class="hovereffect">
-                                <img src="/images/g1.jpg" alt=" " class="img-responsive" />
+                                <img src="/images/scenery/{{pic}}" alt=" " class="img-responsives" />
                                 <div class="overlay">
                                     <p class="info">Road trip</p>
                                 </div>
@@ -16,102 +17,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g2.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g2.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g3.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g3.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g4.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g4.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g5.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g5.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g6.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g6.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g7.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g7.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g8.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g8.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 w3l_gallery_grid">
-                    <div class="agileinfo_gallery_grid">
-                        <a class="group1" href="/images/g9.jpg" title="Road trip">
-                            <div class="hovereffect">
-                                <img src="/images/g9.jpg" alt=" " class="img-responsive" />
-                                <div class="overlay">
-                                    <p class="info">Road trip</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {{/each}}
                 <div class="clearfix"> </div>
             </div>
         </div>

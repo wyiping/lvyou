@@ -472,9 +472,11 @@ span.w3-line {
 .hovereffect {
 	width: 100%;
     height: 100%;
+	/*height: 0;*/
     overflow: hidden;
     position: relative;
     text-align: center;
+	padding-bottom: 54.545454%;
 }
 
 .hovereffect .overlay {
@@ -493,8 +495,11 @@ span.w3-line {
 }
 
 .hovereffect img {
-  display: block;
-  position: relative;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0
 }
 .hovereffect p.info {
 	display: inline-block;
@@ -512,7 +517,7 @@ span.w3-line {
     -webkit-transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
     transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
     font-weight: normal;
-    margin: 12em 0 0;
+    margin: 10em 0 0em;
     padding: 1em 3em;
     letter-spacing: 5px;
 }
@@ -1038,6 +1043,9 @@ footer{
 		font-size: 13px;
 		width: 90%;
 	}
+	.hovereffect p.info {
+		margin: 7em 0 0;
+	}
 }
 @media (max-width: 1080px){
 	.w3layouts-header-title h2 {
@@ -1093,7 +1101,7 @@ footer{
 		min-height: 250px;
 	}
 	.hovereffect p.info {
-		margin: 9em 0 0;
+		margin: 7em 0 0;
 	}
 	.img-caption::before { 
 		top: -55%;
@@ -1219,7 +1227,7 @@ footer{
 		margin-top:30px;
 	}
 	.hovereffect p.info {
-		margin: 11em 0 0;
+		margin: 10em 0 0;
 	}
 	.w3agile-slider-grid-info p {
 		font-size: 13px;
@@ -1377,7 +1385,7 @@ footer{
 		padding: 0em 0 4em;
 	}
 	.hovereffect p.info {
-		margin: 9em 0 0;
+		margin: 7em 0 0;
 	}
 	.w3agile-slider-grid-img {
 		width: 22%;
@@ -1450,7 +1458,7 @@ footer{
 		padding: 40px 0;
 	}
 	.hovereffect p.info {
-		margin: 7em 0 0;
+		margin: 5em 0 0;
 	}
 	.w3ls-news-section-grid {
 		width: 80%
@@ -1620,7 +1628,7 @@ footer{
 		padding: 0;
 	}
 	.hovereffect p.info {
-		margin: 10em 0 0;
+		margin: 7em 0 0;
 	}
 	.w3agile-slider-grid-img {
 		width: 28%;
@@ -1638,7 +1646,7 @@ footer{
 		width: 71%;
 	}
 	.hovereffect p.info {
-		margin: 9em 0 0;
+		margin: 7em 0 0;
 	}
 	.w3agile-about-section-head h3, .agileits-w3layouts-specials h3, .title h3, .gallery h3, .agileits-news-section-head h3, .w3-testimonial-heading h3, .contact-section-head h3 {
 		font-size: 2.4em;
@@ -1690,7 +1698,7 @@ footer{
 		width: 87%;
 	}
 	.hovereffect p.info {
-		margin: 8em 0 0;
+		margin: 7em 0 0;
 	}
 	.w3agile-about-section-head h3, .agileits-w3layouts-specials h3, .title h3, .gallery h3, .agileits-news-section-head h3, .w3-testimonial-heading h3, .contact-section-head h3 {
 		font-size: 2.2em;
