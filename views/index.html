@@ -42,11 +42,11 @@
 
 	<!-- gallery -->
 	<div class="gallery text-center" id="gallery">
-		{{include 'scenery/gallery'}}
+		
 	</div>
 
 	<!-- introduce -->
-	<div class="news-section" id="introduce">
+	<div class="introduce-section" id="introduce">
 
 	</div>
 
@@ -67,9 +67,8 @@
 	<script type="text/javascript" src="/js/plugins/easing.js"></script>
 	<script>
 		$('#gallery').load('/gallery');
-		$('#introduce').load('/introduce');
+		$('#introduce').load('/introduce/1');
 		$(document).ready(function () {
-			$(".group1").colorbox({ rel: 'group1' });
 			$().UItoTop({ easingType: 'easeOutQuart' });
 			$(".scroll").click(function (event) {
 				event.preventDefault();

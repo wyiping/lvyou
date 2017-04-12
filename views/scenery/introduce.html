@@ -1,12 +1,12 @@
 <div class="container">
-    <div class="agileits-news-section-head text-center">
-        <h3 class="agileits_head">景点介绍</h3>
+    <div class="introduce-head text-center">
+        <h3 class="agileits_head">INTRODUCE</h3>
         <span class="w3-line"></span>
     </div>
-    <div class="news-section-grids">
+    <div class="introduce-section">
         {{ each sceneries as s i}}
-        <div class="col-md-4 w3ls-news-section-grid">
-            <img src="/images/scenery/{{s.picList[0]}}" alt="" />
+        <div class="col-md-4 introduce-grid">
+            <img src="/images/scenery/{{s.picList[0]}}" alt=""  onerror="this.src='/images/default.jpg'"/>
             <div class="info">
                 <h5>{{s.name}}</h5>
                 <p>{{s.summary}}</p>
@@ -33,4 +33,15 @@
         {{/each}}
         <div class="clearfix"></div>
     </div>
+    <div class="introduce-page">
+        <ul class="pager">
+            <li class="previous {{if page == 1}} disabled {{/if}}"><a href="javascript:void(0)" onclick="page('{{page - 1}}')">Previous</a></li>
+            <li class="next {{if page == pageCount}} disabled {{/if}}"><a href="javascript:void(0)" onclick="page('{{page + 1}}')">Next</a></li>
+        </ul>
+    </div>
 </div>
+<script>
+    function page(page){
+        $('#introduce').load('/introduce/'+page);
+    }
+</script>
