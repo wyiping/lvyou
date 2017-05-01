@@ -1,33 +1,15 @@
-var log4js = require('log4js');
-
+var morgan = require('morgan');
 var fs = require('fs');
-// 判断日志目录是否存在，不存在时创建日志目录
-if(!fs.existsSync('logs')){
-    fs.mkdirSync('logs')
+var path = require('path');
+var logDir = path.join(__dirname, '..', 'logs');
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir)
 }
 
-// 加载配置文件
-log4js.configure({
-    "appenders": [  
-        {
-            "type": "console"
-        },  
-        {
-            type: "dateFile",
-            filename: 'logs/',
-            pattern: "yyyy-MM-dd.txt", 
-            alwaysIncludePattern: true,
-            category: "info"
-        }
-    ],  
-    "replaceConsole": true,  
-    "levels":{"logInfo": "auto"}  
-});
+var accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'));
+morgan.format('default', ':remote-addr - [:date] ":method :url" :status ":referrer" ":user-agent"')
 
-var logInfo = log4js.getLogger('info');
-
-// 配合express用的方法
-exports.use = function(app) {
-    //页面请求日志, level用auto时,默认级别是WARN
-    app.use(log4js.connectLogger(logInfo, {level:'auto'}));
+exports.use = function (app) {
+    app.use(morgan('dev'));
+    app.use(morgan('default', { stream: accessLogStream }));
 }
