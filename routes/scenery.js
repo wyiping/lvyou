@@ -6,7 +6,7 @@ var router = express.Router()
 
 // 主页
 router.get('', (req, res) => {
-    res.render('index')
+    res.render('home')
 })
 
 // 介绍
@@ -22,7 +22,7 @@ router.get('/introduce/(:page)?', (req, res) => {
             page = page > pageCount ? pageCount : page;
             page = page < 1 ? 1 : page;
             db.Scenery.find().skip((page - 1) * 6).sort().limit(6).exec((err, data) => {
-                res.render('scenery/introduce', {
+                res.render('home/introduce', {
                     page, pageCount,
                     sceneries: data.map(m => {
                         m = m.toObject();
@@ -48,7 +48,7 @@ router.get('/gallery', (req, res) => {
                 }
             }
         })
-        res.render('scenery/gallery', {
+        res.render('home/gallery', {
             pics:picList
         });
     })
