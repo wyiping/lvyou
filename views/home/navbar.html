@@ -10,9 +10,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-                <div class="w3-logo">
-                    <h1><a href="#">Road trip</a></h1>
-                </div>
+            <div class="w3-logo">
+                <h1><a href="#">Road trip</a></h1>
+            </div>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -25,7 +25,7 @@
                 <li class="dropdown" id="petname" style="display:none;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/">个人中心</a></li>
+                        <li><a href="" class="js_user_href">个人中心</a></li>
                         <li><a href="/user/logout">注销</a></li>
                     </ul>
                 </li>
@@ -38,10 +38,12 @@
 </div>
 <script src="/js/plugins/jquery.cookie.js"></script>
 <script>
-    var petname = $.cookie("petname");
-    if (petname){
+    var user = $.cookie("user");
+    if (user) {
+        user = $.parseJSON(user.substr(2));
         $('#login').hide();
-        $('#petname').children('a').html(petname);
+        $('#petname').children('a').html(user.petname);
+        $('.js_user_href').attr('href', '/user/info/' + user._id)
         $('#petname').show();
     }
 </script>
