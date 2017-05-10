@@ -58,7 +58,12 @@ router.get('/logout', (req, res) => {
     res.clearCookie('user');
     res.render('home')
 })
-// 会员中心
 
+// 会员中心
+router.get('/info/:id', (req, res) => {
+    db.User.findById(req.params.id, (err, data) => {
+        res.render('detail/user', { user: data })
+    })
+})
 
 module.exports = router;

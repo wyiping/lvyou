@@ -1,0 +1,34 @@
+<header class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!--navbar-header-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#nav">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+            <a href="" class="navbar-brand">Road trip</a>
+        </div>
+        <!--navbar-collapse-->
+        <div class="navbar-collapse collapse" id="nav">
+            <ul class="navbar-nav nav navbar-right">
+                <li><a href="/">首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="drop-toggle" data-toggle="dropdown">游记 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">查看游记</a></li>
+                        <li><a href="">添加游记</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="drop-toggle" data-toggle="dropdown">{{user.petname}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">查看资料</a></li>
+                        <li><a href="">修改资料</a></li>
+                        <li><a href="/user/logout">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
