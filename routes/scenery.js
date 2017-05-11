@@ -16,7 +16,7 @@ router.get('/introduce/(:page)?', (req, res) => {
     page = parseInt(page);
     db.Scenery.find().count((err, count) => {
         if (err) {
-            
+
         } else {
             var pageCount = Math.ceil(count / 6);
             page = page > pageCount ? pageCount : page;
@@ -43,15 +43,21 @@ router.get('/gallery', (req, res) => {
         data.map(m => {
             m = m.toObject();
             if (m.picList) {
-                for (var i = 0; i < m.picList.length; i++){
+                for (var i = 0; i < m.picList.length; i++) {
                     picList.push(m.picList[i])
                 }
             }
         })
         res.render('home/gallery', {
-            pics:picList
+            pics: picList
         });
     })
 })
 
+// 景点详情
+router.get('/detail/:id', (req, res) => {
+    db.Scenery.findById(req.params.id, (err, data) => {
+        res.render('detail/scenery', { scenery: data })
+    })
+})
 module.exports = router;

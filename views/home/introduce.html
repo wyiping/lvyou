@@ -6,11 +6,12 @@
     <div class="introduce-section">
         {{ each sceneries as s i}}
         <div class="col-md-4 introduce-grid">
-            <img src="/images/scenery/{{s.picList[0]}}" alt=""  onerror="this.src='/images/default.jpg'"/>
+            <img src="/images/scenery/{{s.picList[0]}}" alt="" onerror="this.src='/images/default.jpg'" />
             <div class="info">
                 <h5>{{s.name}}</h5>
                 <p>{{s.summary}}</p>
-                <a class="more" href="#" data-toggle="modal" data-target="#myModal{{i}}">{{if s.content}}查看{{else}}　{{/if}}</a>
+                <!--<a class="more" href="#" data-toggle="modal" data-target="#myModal{{i}}">{{if s.content}}查看{{else}}　{{/if}}</a>-->
+                <a class="more" href="/detail/{{s.id}}">查看</a>
                 <!-- Modal-->
                 <div class="modal fade" id="myModal{{i}}" role="dialog">
                     <div class="modal-dialog">
@@ -41,7 +42,7 @@
     </div>
 </div>
 <script>
-    function page(page){
-        $('#introduce').load('/introduce/'+page);
+    function page(page) {
+        $('#introduce').load('/introduce/' + page);
     }
 </script>

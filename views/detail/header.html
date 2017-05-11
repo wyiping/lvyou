@@ -20,8 +20,9 @@
                         <li><a href="">添加游记</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="drop-toggle" data-toggle="dropdown">{{user.petname}} <span class="caret"></span></a>
+                <li><a href="javascript:void(0)" id="login">登录</a></li>
+                <li class="dropdown" id="user" style="display:none;">
+                    <a href="#" class="drop-toggle" data-toggle="dropdown"><span class="petname"></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="">查看资料</a></li>
                         <li><a href="">修改资料</a></li>
@@ -32,3 +33,17 @@
         </div>
     </div>
 </header>
+<script src="/js/plugins/jAlert.min.js"></script>
+<link rel="stylesheet" href="/css/jAlert.css" />
+<script src="/js/plugins/jquery.cookie.js"></script>
+<script src="/js/index.js"></script>
+<script>
+    var user = $.cookie("user");
+    if (user) {
+        user = $.parseJSON(user.substr(2));
+        $('#login').hide();
+        $('.petname').html(user.petname);
+        $('#user').show();
+    }
+
+</script>
