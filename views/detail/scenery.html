@@ -16,58 +16,92 @@
 <body>
     {{include 'header'}}
     <div class="main">
-        <div class="container main-info">
-            <div class="col-md-6">
-                <div id="pic" class="carousel slide main-pic-wrap" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {{each scenery.picList as pic i}}
-                        <li data-target="#pic" data-slide-to="{{i}}" {{if i==0 }}class="active" {{/if}}></li>
-                        {{/each}}
-                    </ol>
-                    <div class="carousel-inner">
-                        {{each scenery.picList as pic i}}
-                        <div class="item {{if i==0}} active {{/if}}">
-                            <img src="/images/scenery/{{pic}}">
+        <div class="container">
+            <div class="row main-info">
+                <div class="col-md-6 col-md-offset-1">
+                    <div id="pic" class="carousel slide main-pic-wrap" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            {{each scenery.picList as pic i}}
+                            <li data-target="#pic" data-slide-to="{{i}}" {{if i==0 }}class="active" {{/if}}></li>
+                            {{/each}}
+                        </ol>
+                        <div class="carousel-inner">
+                            {{each scenery.picList as pic i}}
+                            <div class="item {{if i==0}} active {{/if}}">
+                                <img src="/images/scenery/{{pic}}">
+                            </div>
+                            {{/each}}
                         </div>
-                        {{/each}}
+                        <a class="left carousel-control" href="#pic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <a class="right carousel-control" href="#pic" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
-                    <a class="left carousel-control" href="#pic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <a class="right carousel-control" href="#pic" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
                 </div>
-            </div>
-            <!--col-md-6-->
-            <div class="col-md-4 main-info-wrap">
-                <h3 class="title">{{scenery.name}}</h3>
-                <div class="main-score">
-                    <span class="star-new"><span class="star-9"></span></span>5分
-                </div>
-                <div class="main-desc">
-                    <p class="main-desc-p">
-                        {{scenery.summary}}
-                        <a class="click-more-info">[详细简介]</a>
-                    </p>
-                </div>
-                <div class="main-intro">
-                    <span class="main-besttime">
+                <!--col-md-6-->
+                <div class="col-md-4 main-info-wrap">
+                    <h3 class="title">{{scenery.name}}</h3>
+                    <div class="main-score">
+                        <span class="star-new"><span class="star-9"></span></span>5分
+                    </div>
+                    <div class="main-desc">
+                        <p class="main-desc-p">
+                            {{scenery.summary}}
+                            <a class="click-more-info">[详细简介]</a>
+                        </p>
+                    </div>
+                    <div class="main-intro">
+                        <span class="main-besttime">
                         <span><i class="glyphicon glyphicon-map-marker"></i>到达与离开：{{scenery.address}}</span>
-                    </span>
-                    <span class="main-besttime">
+                        </span>
+                        <span class="main-besttime">
                         <span><i class="glyphicon glyphicon-heart-empty"></i>景点类型：山峰</span>
-                    </span>
-                    <span class="main-besttime">
+                        </span>
+                        <span class="main-besttime">
                         <span><i class="glyphicon glyphicon-heart-empty"></i>最佳季节：6月-8月是五台山的...</span>
-                    </span>
-                    <span class="main-dcnt">
+                        </span>
+                        <span class="main-dcnt">
                         <span><i class="glyphicon glyphicon-heart-empty"></i>建议游玩：2-3天</span>
-                    </span>
+                        </span>
+                    </div>
+                </div>
+                <!--col-md-4-->
+            </div>
+            <!--row main-info-->
+            <div class="row map">
+                <div class="col-md-10 col-md-offset-1">
+                    <div id="map"></div>
                 </div>
             </div>
-            <!--col-md-4-->
+            <!--row map-->
         </div>
         <!--container-->
     </div>
     {{include 'footer'}}
-
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mRQlwaGGZHuRPbWuFOC3IBBh2BbtYIEo"></script>
+    <script>
+        var map = new BMap.Map("map");    // 创建Map实例
+        var p_scenery = new BMap.Point({{scenery.location.lon }}, {{ scenery.location.lat }});
+        map.centerAndZoom(p_scenery, 20);  // 初始化地图,设置中心点坐标和地图级别
+        map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+        map.setCurrentCity("太原");          // 设置地图显示的城市 此项是必须设置的
+        var mk = new BMap.Marker(p_scenery);
+        map.addOverlay(mk);
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                var p_current = r.point;
+                var driving = new BMap.DrivingRoute(map,{
+                        renderOptions: {
+                            map: map, autoViewport: true, enableDragging: true //起终点可进行拖拽 
+                        }
+                    });
+                driving.search(p_current, p_scenery);
+            }
+            else {
+                alert('failed' + this.getStatus());
+            }
+        }, { enableHighAccuracy: true })
+    </script>
 </body>
 
 </html>
