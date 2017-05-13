@@ -17,7 +17,7 @@
                     <a href="#" class="drop-toggle" data-toggle="dropdown">游记 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="">查看游记</a></li>
-                        <li><a href="">添加游记</a></li>
+                        <li><a href="javascript:void(0)" onclick="addNotes()" class="js_add">添加游记</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0)" id="login">登录</a></li>
@@ -33,6 +33,7 @@
         </div>
     </div>
 </header>
+<script src="/js/notes.js"></script>
 <script src="/js/plugins/jAlert.min.js"></script>
 <link rel="stylesheet" href="/css/jAlert.css" />
 <script src="/js/plugins/jquery.cookie.js"></script>
@@ -44,6 +45,6 @@
         $('#login').hide();
         $('.petname').html(user.petname);
         $('#user').show();
+        $('.js_add').data('user', user._id);
     }
-
 </script>

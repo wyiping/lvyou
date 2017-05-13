@@ -235,6 +235,8 @@ header {
 figure.effect-bubba {
 	  background-color:#676767;
 	  margin:0;
+	  height: 377px;
+	  overflow: hidden;
 }
 figure.effect-bubba:hover img {
 	opacity: 0.6;
@@ -1696,4 +1698,12 @@ footer{
 	.w3agile-slider-grid-img {
 		width: 35%;
 	}
+}
+.notes-content{
+	/*padding: 0;*/
+	height: 377px;
+	box-sizing: border-box;
+}
+.notes-content p{
+	text-overflow : ellipsis;
 }

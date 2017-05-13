@@ -17,7 +17,7 @@ var Schema = mongoose.Schema;
 // 定义一个Schema,创建数据集合（表）的描述对象。
 // 第一个参数是表的结构，第二个参数是指定集合的名称。
 var UserSchema = new Schema({
-    username:  { type: String, unique: true },
+    username: { type: String, unique: true },
     petname: String,
     password: String,
     email: String,
@@ -34,7 +34,7 @@ var User = mongoose.model('user', UserSchema)
 
 // 景点Schema
 var ScenerySchema = new Schema({
-    name:  { type: String, unique: true },
+    name: { type: String, unique: true },
     location: {
         lat: String,
         lon: String
@@ -42,10 +42,20 @@ var ScenerySchema = new Schema({
     address: String,
     summary: String,
     content: String,
-    picList:Array
+    picList: Array
 })
 
-var Scenery = mongoose.model('scenery',ScenerySchema)
+var Scenery = mongoose.model('scenery', ScenerySchema)
+
+// 游记Schema
+var NotesSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: "user" },
+    scenery: { type: Schema.Types.ObjectId, ref: "scenery" },
+    title: String,
+    content: String,
+    createTime: Date
+})
+var Notes = mongoose.model('notes', NotesSchema)
 
 // 导出User模块
-module.exports = { User , Scenery};
+module.exports = { User, Scenery, Notes };

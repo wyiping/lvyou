@@ -37,7 +37,7 @@
 
 	<!-- wonder-notes -->
 	<div class="agileits-w3layouts-specials" id="wonder-notes">
-		{{include 'home/notes'}}
+
 	</div>
 
 	<!-- gallery -->
@@ -68,6 +68,7 @@
 	<script>
 		$('#gallery').load('/gallery');
 		$('#introduce').load('/introduce/1');
+		$('#wonder-notes').load('/notes/list');
 		$(document).ready(function () {
 			$().UItoTop({ easingType: 'easeOutQuart' });
 			$(".scroll").click(function (event) {
