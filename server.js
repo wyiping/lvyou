@@ -8,8 +8,8 @@ app.use('/user', require('./routes/user'))
 // 管理员路由
 app.use('/admin', require('./routes/admin'))
 
-// 景点路由
-app.use('/', require('./routes/scenery'))
+// 首页路由
+app.use('/', require('./routes/home'))
 
 // 游记路由
 app.use('/notes', require('./routes/notes'))

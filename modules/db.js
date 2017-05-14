@@ -57,5 +57,12 @@ var NotesSchema = new Schema({
 })
 var Notes = mongoose.model('notes', NotesSchema)
 
-// 导出User模块
-module.exports = { User, Scenery, Notes };
+// 首页
+var HomeSchema = new Schema({
+    name: String,
+    type: String
+})
+var Home = mongoose.model('home', HomeSchema)
+
+// 导出模块
+module.exports = { User, Scenery, Notes, Home };

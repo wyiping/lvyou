@@ -292,9 +292,9 @@ router.get('/sceneries/(:page)?/(:pageSize)?', (req, res) => {
 router.get('/scenery/edit/:id', (req, res) => {
     db.Scenery.findById(req.params.id, (err, data) => {
         if (err) {
-            
+
         } else {
-            res.render('admin/editscenery', { scenery:data })
+            res.render('admin/editscenery', { scenery: data })
         }
     })
 })
@@ -311,7 +311,7 @@ router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
     for (i = 0; i < files.length; i++) {
         picList.push(files[i].filename);
     }
-    
+
     req.body.picList = picList
     db.Scenery.findByIdAndUpdate(req.params.id, req.body, err => {
         if (err) {
@@ -323,7 +323,7 @@ router.post('/scenery/edit/:id', upload.array('pic'), (req, res) => {
                 if (typeof delPic == 'string') {
                     fs.unlinkSync('wwwroot/images/scenery/' + delPic);
                 } else {
-                    for (var i = 0; i < delPic.length; i++){
+                    for (var i = 0; i < delPic.length; i++) {
                         fs.unlinkSync('wwwroot/images/scenery/' + delPic[i]);
                     }
                 }
@@ -338,20 +338,54 @@ router.get('/scenery/del/:id', (req, res) => {
     db.Scenery.findById(req.params.id, (err, data) => {
         if (data.hasOwnProperty('picList')) {
             if (data.picList) {
-                for (var i = 0; i < data.picList.length; i++){
+                for (var i = 0; i < data.picList.length; i++) {
                     fs.unlinkSync('wwwroot/images/scenery/' + data.picList[i]);
                 }
             }
         }
         db.Scenery.findByIdAndRemove(req.params.id, err => {
             if (err) {
-                res.json({code:"error",message:"删除失败"})
+                res.json({ code: "error", message: "删除失败" })
             } else {
-                res.json({code:"success",message:"删除成功"})
+                res.json({ code: "success", message: "删除成功" })
             }
         })
     })
+})
 
+// 首页管理
+// 图片列表
+router.get('/pic/list/:type', (req, res) => {
+    var pics = new Array();
+    db.Scenery.find((err, data) => {
+        data.map(m => {
+            m = m.toObject();
+            if (m.picList) {
+                for (var i = 0; i < m.picList.length; i++) {
+                    pics.push(m.picList[i])
+                }
+            }
+        })
+        res.render('admin/pictures', { pics: pics, type: req.params.type })
+    })
+})
+
+// banner管理
+// banner列表
+router.get('/banner', (req, res) => {
+    db.Home.find({ type: 'banner' }, (err, data) => {
+        res.render('admin/banner', { pics: data })
+    })
+})
+// 添加banner
+router.post('/banner/add', (req, res) => {
+    new db.Home(req.body).save(err => {
+        if (err) {
+            res.json({ code: 'error', message: '添加失败,系统出错' })
+        } else {
+            res.json({ code: 'success', message: '添加成功' })
+        }
+    })
 })
 // 导出路由
 module.exports = router;

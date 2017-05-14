@@ -9,6 +9,13 @@ router.get('', (req, res) => {
     res.render('home')
 })
 
+// banner
+router.get('/banner', (req, res) => {
+    db.Home.find({ type: 'banner' }, (err, data) => {
+        res.render('home/banner', { pics: data })
+    })
+})
+
 // 介绍
 router.get('/introduce/(:page)?', (req, res) => {
     var page = req.params.page;

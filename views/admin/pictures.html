@@ -1,0 +1,37 @@
+<div class="contentwrapper">
+    <div class="prodwrapper">
+        <ul class="prodlist">
+            {{each pics as pic}}
+            <li class="one_third">
+                <div class="thumb"><a href=""><img src="/images/scenery/{{pic}}" /></a></div>
+                <div class="content">
+                    <div class="contentinner">
+                        <div>
+                            <a href="javascript:void(0)" class="title" data-type="{{type}}" data-name="{{pic}}" onclick="select(this)">选择</a>
+                        </div>
+                    </div>
+                    <!--contentinner-->
+                </div>
+                <!--content-->
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <!--prodwrapper-->
+</div>
+<script>
+    function select(t) {
+        $.post('/admin/banner/add',
+            {
+                type: $(t).data("type"),
+                name: $(t).data("name")
+            },
+            function (res) {
+                $.jAlert({
+                    'content': res.message,
+                    'closeOnClick': true
+                });
+            }
+        )
+    }
+</script>

@@ -1,0 +1,30 @@
+<div class="pageheader">
+    <h1 class="pagetitle">banner管理
+        <button type="button" class="stdbtn btn_lime" style="float:right;" onclick="pictures()">选择图片</button>
+    </h1>
+    <div class="contentwrapper">
+        <div class="prodwrapper">
+            <ul class="prodlist">
+                {{if pics}} {{each pics as pic}}
+                <li class="one_third">
+                    <div class="thumb"><a href=""><img src="/images/scenery/{{pic.name}}" /></a></div>
+                </li>
+                {{/each}} {{else}}
+                <p>未选择图片</p>
+                {{/if}}
+            </ul>
+        </div>
+        <!--prodwrapper-->
+    </div>
+</div>
+<script>
+    function pictures() {
+        $.jAlert({
+            'ajax': '/admin/pic/list/banner',
+            'size': 'xlg',
+            'onClose': function (alert) {
+                LoadUrl('.centercontent', '/admin/banner');
+            }
+        });
+    }
+</script>
