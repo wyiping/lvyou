@@ -82,4 +82,20 @@ router.post('/edit/:id', (req, res) => {
         }
     })
 })
+// 用户查看游记
+router.get('/notes/:userid', (req, res) => {
+    db.Notes.find({ user: req.params.userid }).populate('user').exec((err, data) => {
+        res.render('detail/user_notes', { notes: data })
+    })
+})
+// 删除游记
+router.post('/notes/del/:id', (req, res) => {
+    db.Notes.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+            res.json({ code: "error", message: "删除失败" })
+        } else {
+            res.json({ code: "success", message: "删除成功" })
+        }
+    })
+})
 module.exports = router;

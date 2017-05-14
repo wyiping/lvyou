@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="石雯茜">
+    <title>游记</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/detail.css" rel="stylesheet">
+    <script src="/js/plugins/jquery.js"></script>
+    <script src="/js/plugins/bootstrap.js"></script>
+</head>
+
+<body>
+    {{include 'header'}}
+    <div class="main">
+        <div class="container">
+            <div class="col-md-3">
+                <nav>
+                    <ul class="nav nav-stacked">
+                        <li class=""><a href="/user/info/{{notes[0].user.id}}">查看资料</a></li>
+                        <li class=""><a href="/user/edit/{{notes[0].user.id}}">修改资料</a></li>
+                        <li class=""><a href="/user/notes/{{notes[0].user.id}}">查看游记</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-9">
+                <h1 class="page-header">游记</h1>
+                {{each notes as n}}
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading">{{n.title}} <i class="glyphicon glyphicon-trash" onclick="del('{{n.id}}')" style="cursor: pointer;"></i></h4>
+                        <p>{{n.content}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{include 'footer'}}
+    <script>
+        function del(id) {
+            $.post('/user/notes/del/' + id, function (res) {
+                $.jAlert({
+                    'content': res.message,
+                    'closeOnClick': true,
+                    'onClose': function (alert) {
+                        window.location.href = '/user/notes/{{notes[0].user.id}}';
+                    }
+                });
+            })
+        }
+    </script>
+</body>
+
+</html>
