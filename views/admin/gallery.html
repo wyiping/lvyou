@@ -1,5 +1,5 @@
 <div class="pageheader">
-    <h1 class="pagetitle">banner管理
+    <h1 class="pagetitle">gallery管理
         <button type="button" class="stdbtn btn_lime" style="float:right;" onclick="pictures()">选择图片</button>
     </h1>
     <div class="contentwrapper">
@@ -29,10 +29,10 @@
 <script>
     function pictures() {
         $.jAlert({
-            'ajax': '/admin/pic/list/banner',
+            'ajax': '/admin/pic/list/gallery',
             'size': 'xlg',
             'onClose': function (alert) {
-                LoadUrl('.centercontent', '/admin/banner');
+                LoadUrl('.centercontent', '/admin/gallery');
             }
         });
     }
@@ -43,7 +43,7 @@
                     'content': res.message,
                     'closeOnClick': true,
                     'onClose': function (alert) {
-                        LoadUrl('.centercontent', '/admin/banner');
+                        LoadUrl('.centercontent', '/admin/gallery');
                     }
                 });
             }

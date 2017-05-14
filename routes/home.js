@@ -45,19 +45,8 @@ router.get('/introduce/(:page)?', (req, res) => {
 
 // gallery
 router.get('/gallery', (req, res) => {
-    db.Scenery.find().limit(9).exec((err, data) => {
-        var picList = new Array();
-        data.map(m => {
-            m = m.toObject();
-            if (m.picList) {
-                for (var i = 0; i < m.picList.length; i++) {
-                    picList.push(m.picList[i])
-                }
-            }
-        })
-        res.render('home/gallery', {
-            pics: picList
-        });
+    db.Home.find({ type: 'gallery' }, (err, data) => {
+        res.render('home/gallery', { pics: data });
     })
 })
 

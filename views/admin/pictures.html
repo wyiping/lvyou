@@ -21,7 +21,14 @@
 </div>
 <script>
     function select(t) {
-        $.post('/admin/banner/add',
+        var num = '';
+        if ($(t).data("type") == 'banner'){
+            num = '4';
+        }
+        if ($(t).data("type") == 'gallery'){
+            num = '9'
+        }
+        $.post('/admin/{{type}}/add/' + num,
             {
                 type: $(t).data("type"),
                 name: $(t).data("name")

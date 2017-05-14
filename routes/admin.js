@@ -377,11 +377,12 @@ router.get('/banner', (req, res) => {
         res.render('admin/banner', { pics: data })
     })
 })
-// 添加banner
-router.post('/banner/add', (req, res) => {
-    db.Home.find({ type: 'banner' }).count((err, count) => {
-        if (count >= 4) {
-            res.json({ code: 'error', message: '添加失败,最多添加4张图片' })
+// 添加banner和gallery,type为banner或gallery
+router.post('/:type/add/:num', (req, res) => {
+    var num = req.params.num
+    db.Home.find({ type: req.params.type }).count((err, count) => {
+        if (count >= parseInt(num)) {
+            res.json({ code: 'error', message: '添加失败,最多添加'+ num +'张图片' })
         } else {
             new db.Home(req.body).save(err => {
                 if (err) {
@@ -393,14 +394,20 @@ router.post('/banner/add', (req, res) => {
         }
     })
 })
-// 删除banner
-router.post('/banner/del/:id', (req, res) => {
+// 删除banner和gallery
+router.post('/home/del/:id', (req, res) => {
     db.Home.findByIdAndRemove(req.params.id, (err, data) => {
         if (err) {
             res.json({ code: 'error', message: '删除失败,系统出错' })
         } else {
             res.json({ code: 'success', message: '删除成功' })
         }
+    })
+})
+// gallery列表
+router.get('/gallery', (req, res) => {
+    db.Home.find({ type: 'gallery' }, (err, data) => {
+        res.render('admin/gallery', { pics: data })
     })
 })
 // 导出路由
