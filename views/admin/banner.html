@@ -8,6 +8,15 @@
                 {{if pics}} {{each pics as pic}}
                 <li class="one_third">
                     <div class="thumb"><a href=""><img src="/images/scenery/{{pic.name}}" /></a></div>
+                    <div class="content">
+                        <div class="contentinner">
+                            <div>
+                                <a href="javascript:void(0)" class="title" onclick="del('{{pic.id}}')">删除</a>
+                            </div>
+                        </div>
+                        <!--contentinner-->
+                    </div>
+                    <!--content-->
                 </li>
                 {{/each}} {{else}}
                 <p>未选择图片</p>
@@ -26,5 +35,18 @@
                 LoadUrl('.centercontent', '/admin/banner');
             }
         });
+    }
+    function del(id) {
+        $.post('/admin/banner/del/' + id,
+            function (res) {
+                $.jAlert({
+                    'content': res.message,
+                    'closeOnClick': true,
+                    'onClose': function (alert) {
+                        LoadUrl('.centercontent', '/admin/banner');
+                    }
+                });
+            }
+        )
     }
 </script>

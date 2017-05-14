@@ -379,11 +379,27 @@ router.get('/banner', (req, res) => {
 })
 // 添加banner
 router.post('/banner/add', (req, res) => {
-    new db.Home(req.body).save(err => {
-        if (err) {
-            res.json({ code: 'error', message: '添加失败,系统出错' })
+    db.Home.find({ type: 'banner' }).count((err, count) => {
+        if (count >= 4) {
+            res.json({ code: 'error', message: '添加失败,最多添加4张图片' })
         } else {
-            res.json({ code: 'success', message: '添加成功' })
+            new db.Home(req.body).save(err => {
+                if (err) {
+                    res.json({ code: 'error', message: '添加失败,系统出错' })
+                } else {
+                    res.json({ code: 'success', message: '添加成功' })
+                }
+            })
+        }
+    })
+})
+// 删除banner
+router.post('/banner/del/:id', (req, res) => {
+    db.Home.findByIdAndRemove(req.params.id, (err, data) => {
+        if (err) {
+            res.json({ code: 'error', message: '删除失败,系统出错' })
+        } else {
+            res.json({ code: 'success', message: '删除成功' })
         }
     })
 })
