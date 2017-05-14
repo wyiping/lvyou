@@ -66,4 +66,20 @@ router.get('/info/:id', (req, res) => {
     })
 })
 
+// 用户编辑
+router.get('/edit/:id', (req, res) => {
+    db.User.findById(req.params.id, (err, data) => {
+        res.render('detail/user_edit', { user: data })
+    })
+})
+router.post('/edit/:id', (req, res) => {
+    db.User.findByIdAndUpdate(req.params.id, req.body, err => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误' });
+        }
+        else {
+            res.json({ code: "success", message: "更新成功" })
+        }
+    })
+})
 module.exports = router;

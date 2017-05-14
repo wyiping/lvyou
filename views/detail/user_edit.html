@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="石雯茜">
+    <title>个人中心</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/detail.css" rel="stylesheet">
+    <script src="/js/plugins/jquery.js"></script>
+    <script src="/js/plugins/bootstrap.js"></script>
+</head>
+
+<body>
+    {{include 'header'}}
+    <div class="main">
+        <div class="container">
+            <div class="col-md-3">
+                <nav>
+                    <ul class="nav nav-stacked">
+                        <li class=""><a href="/user/info/{{user.id}}">查看资料</a></li>
+                        <li class=""><a href="/user/edit/{{user.id}}">修改资料</a></li>
+                        <li class=""><a href="">查看游记</a></li>
+                        <li class=""><a href="">添加游记</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-9">
+                <h1 class="page-header">基本资料</h1>
+                <form>
+                    <div class="col-md-6">
+                        <table class="table table-hover table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>用户名</td>
+                                    <td>{{user.username}}</td>
+                                </tr>
+                                <tr>
+                                    <td>昵称</td>
+                                    <td><input type="text" name="petname" value="{{user.petname}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><input type="text" name="email" value="{{user.email}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>密码</td>
+                                    <td><input type="password" name="password" value="{{user.password}}"></td>
+                                </tr>
+                                <tr style="text-align:center;">
+                                    <td colspan="2"><input type="submit" value="修改" class="btn "></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{include 'footer'}}
+    <script>
+        $('form').submit(function (ev) {
+            ev.preventDefault();
+            $.post('/user/edit/{{user.id}}', $(this).serialize(),
+                function (res) {
+                    $.jAlert({
+                        'content': res.message,
+                        'closeOnClick': true,
+                        'onClose': function (alert) {
+                            window.location.href = '/user/info/{{user.id}}';
+                        }
+                    });
+                }
+            )
+        })
+    </script>
+</body>
+
+</html>
