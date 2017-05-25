@@ -64,5 +64,14 @@ var HomeSchema = new Schema({
 })
 var Home = mongoose.model('home', HomeSchema)
 
+// 留言板
+var ContactSchema = new Schema({
+    name: String,
+    email: String,
+    phone: String,
+    comments: String
+})
+var Contact = mongoose.model('contact', ContactSchema)
+
 // 导出模块
-module.exports = { User, Scenery, Notes, Home };
+module.exports = { User, Scenery, Notes, Home, Contact };

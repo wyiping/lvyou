@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="contact-section-head text-center">
+        <h3>留言板</h3>
+        <span></span>
+    </div>
+    <div class="w3l-contact-form-bottom">
+        <div class="col-md-4 w3ls-address">
+            <address>
+                <strong>地址 :</strong>
+                <p>Road Trip Company</p>
+                <p>1st cross Road. Ave., R10/R18</p>
+                <p class="bottom">New York, MA 01234-4321 USA</p>
+                <strong><abbr title="phone">联系方式 :</abbr></strong>
+                <p>040 561234999</p>
+                <strong><a href="/contact">查看留言</a></strong>
+            </address>
+        </div>
+        <form action="#" method="get">
+            <div class="col-md-4 w3l-contact-form">
+                <div class="w3l-contact-form-row">
+                    <div>
+                        <span>姓名：</span>
+                        <input type="text" name="name" class="text" placeholder="" required="required" />
+                    </div>
+                    <div>
+                        <span>Email：</span>
+                        <input type="email" name="email" class="text" placeholder="" />
+                    </div>
+                    <div>
+                        <span>手机：</span>
+                        <input type="text" name="phone" class="text" placeholder="" />
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="col-md-4 w3l-contact-form-row comments">
+                <div>
+                    <span>留言</span>
+                    <textarea name="comments" placeholder="说点什么吧..."></textarea>
+                </div>
+                <input type="submit" value="提交" />
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<script>
+    $.fn.jAlert.defaults.closeOnClick = true;
+    $.fn.jAlert.defaults.closeBtn = false;
+    $("form").submit(function (ev) {
+        ev.preventDefault()
+        $.post('/contact', $(this).serialize(), function (res) {
+            if (res.code == 'success') {
+                $.jAlert({
+                    'content': res.message,
+                });
+            } else {
+                $.jAlert({
+                    'content': res.message,
+                    'theme': 'red'
+                });
+            }
+        })
+    });
+
+</script>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="author" content="石雯茜">
-    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="author" content="石雯茜">
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- Bootstrap stylesheet -->
 	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- stylesheet -->
@@ -20,12 +21,13 @@
 	<link rel="stylesheet" href="/css/colorbox.css" />
 	<!-- css for Gallery -->
 	<script src="/js/plugins/jAlert.min.js"></script>
-    <link rel="stylesheet" href="/css/jAlert.css" />
+	<link rel="stylesheet" href="/css/jAlert.css" />
 	<!-- js required for login alert -->
-    <title>旅游信息网</title>
+	<title>旅游信息网</title>
 </head>
+
 <body>
-    <!-- slider -->
+	<!-- slider -->
 	<div class="w3-slider" id="banner">
 
 	</div>
@@ -42,7 +44,7 @@
 
 	<!-- gallery -->
 	<div class="gallery text-center" id="gallery">
-		
+
 	</div>
 
 	<!-- introduce -->
@@ -50,6 +52,11 @@
 
 	</div>
 
+	<!--留言板-->
+	<!-- contact-section -->
+	<div class="contact-section" id="w3-contact">
+		{{include 'home/contact'}}
+	</div>
 	<!-- footer-section -->
 	<footer>
 		<div class="container">
@@ -79,4 +86,5 @@
 		});
 	</script>
 </body>
+
 </html>
