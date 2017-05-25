@@ -1,6 +1,6 @@
 {
   "name": "lvyou",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "旅游信息网站",
   "main": "server.js",
   "scripts": {

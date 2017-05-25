@@ -18,16 +18,7 @@
     <div class="main">
         {{if notes.length > 0}}
         <div class="container">
-            <div class="col-md-3">
-                <nav>
-                    <ul class="nav nav-stacked">
-                        <li class=""><a href="/user/info/{{notes[0].user.id}}">查看资料</a></li>
-                        <li class=""><a href="/user/edit/{{notes[0].user.id}}">修改资料</a></li>
-                        <li class=""><a href="/user/notes/{{notes[0].user.id}}">查看游记</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-10 col-md-push-1">
                 <h1 class="page-header">游记</h1>
                 {{each notes as n}}
                 <div class="media">

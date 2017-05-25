@@ -13,19 +13,12 @@
         <div class="navbar-collapse collapse" id="nav">
             <ul class="navbar-nav nav navbar-right">
                 <li><a href="/">首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="drop-toggle" data-toggle="dropdown">游记 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">查看游记</a></li>
-                        <li><a href="javascript:void(0)" onclick="addNotes()" class="js_add">添加游记</a></li>
-                    </ul>
-                </li>
+                <li class="js-notes dropdown"></li>
                 <li><a href="javascript:void(0)" id="login">登录</a></li>
                 <li class="dropdown" id="user" style="display:none;">
                     <a href="#" class="drop-toggle" data-toggle="dropdown"><span class="petname"></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="">查看资料</a></li>
-                        <li><a href="">修改资料</a></li>
+                        <li><a href="" class="js_user_href">个人中心</a></li>
                         <li><a href="/user/logout">退出</a></li>
                     </ul>
                 </li>
@@ -33,7 +26,6 @@
         </div>
     </div>
 </header>
-<script src="/js/notes.js"></script>
 <script src="/js/plugins/jAlert.min.js"></script>
 <link rel="stylesheet" href="/css/jAlert.css" />
 <script src="/js/plugins/jquery.cookie.js"></script>
@@ -46,5 +38,6 @@
         $('.petname').html(user.petname);
         $('#user').show();
         $('.js_add').data('user', user._id);
+        $('.js_user_href').attr('href', '/user/info/' + user._id)
     }
 </script>

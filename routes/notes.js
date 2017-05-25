@@ -21,4 +21,10 @@ router.get('/list', (req, res) => {
         res.render('home/notes', { notes: data });
     })
 })
+
+router.get('/:sid', (req, res) => {
+    db.Notes.find({ scenery: req.params.sid }, (err, data) => {
+        res.render('detail/scenery_notes', { notes: data })
+    })
+})
 module.exports = router;
