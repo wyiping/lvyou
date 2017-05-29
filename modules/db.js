@@ -21,7 +21,8 @@ var UserSchema = new Schema({
     petname: String,
     password: String,
     email: String,
-    isAdmin: Boolean
+    isAdmin: Boolean,
+    role: String
 })
 
 // mongoose.model()创建一个数据模型（类或构造函数）
