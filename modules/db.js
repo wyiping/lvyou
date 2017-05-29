@@ -21,7 +21,6 @@ var UserSchema = new Schema({
     petname: String,
     password: String,
     email: String,
-    isAdmin: Boolean,
     role: String
 })
 

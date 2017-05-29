@@ -47,7 +47,7 @@
                             <td class=" sorting_1">{{u.username}}</td>
                             <td>{{u.petname}}</td>
                             <td>{{u.email}}</td>
-                            <td class="center">{{if u.isAdmin}} 管理员 {{else}} 普通用户 {{/if}}</td>
+                            <td class="center">{{if u.role == 'admin'}} 管理员 {{else if u.role == 'user'}} 普通用户 {{else}} 导游{{/if}}</td>
                             <td><a href="/admin/user/edit/{{u.id}}" data-state="edit">修改</a>　　<a href="/admin/user/remove/{{u.id}}" data-state="delete">删除</a></td>
                         </tr>
                     {{/each}}

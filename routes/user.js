@@ -17,7 +17,7 @@ var router = express.Router()
 
 // 会员注册
 router.post('/register', (req, res) => {
-    req.body.isAdmin = false
+    req.body.role = 'user'
     new db.User(req.body).save(err => {
         if (err) {
             if (err.code == 11000) {

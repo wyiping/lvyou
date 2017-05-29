@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
             if (count > 0) {
                 db.User.findOne({ username: req.body.username }, (err, data) => {
                     // 判断是否为管理员
-                    if (data.isAdmin) {
+                    if (data.role == 'admin') {
                         if (req.body.password == data.password) {
                             // 设置cookie 15分钟
                             res.cookie('petname', data.petname, { maxAge: 900000 })
