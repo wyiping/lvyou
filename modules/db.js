@@ -69,7 +69,11 @@ var ContactSchema = new Schema({
     name: String,
     email: String,
     phone: String,
-    comments: String
+    comments: String,
+    answer: [{
+        name: String,
+        content: String
+    }]
 })
 var Contact = mongoose.model('contact', ContactSchema)
 

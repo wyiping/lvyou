@@ -21,10 +21,19 @@
                 <div class="col-md-10 col-md-push-1">
                     {{each contact as c}}
                     <div class="media">
-                        <div class="media-body">
+                        <div class="media-body" onclick="answer('{{c.id}}')" style="cursor:pointer;">
                             <h4 class="media-heading">{{c.name}}</h4>
                             <p>{{c.comments}}</p>
                         </div>
+                        {{each c.answer as answer}}
+                        <div class="media">
+                            <div class="media-left" style="padding:30px;"></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{answer.name}}</h4>
+                                <p>{{answer.content}}</p>
+                            </div>
+                        </div>
+                        {{/each}}
                     </div>
                     {{/each}}
                 </div>
@@ -32,6 +41,18 @@
         </div>
     </div>
     {{include 'footer'}}
+    <script>
+        $.fn.jAlert.defaults.closeOnClick = true;
+        function answer(id) {
+            $.jAlert({
+                'ajax': '/answer/' + id,
+                'size': 'md',
+                'onClose': function(){
+                    window.location.href = '/contact';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

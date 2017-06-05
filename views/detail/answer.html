@@ -1,0 +1,34 @@
+<form action="" method="POST" role="form">
+    <legend>回复</legend>
+
+    <div class="form-group">
+        <label for="">昵称</label>
+        <input type="text" class="form-control" name="name" id="" placeholder="请输入用户名">
+    </div>
+
+    <div class="form-group">
+        <label for="">内容</label>
+        <input type="text" class="form-control" name="content" id="" placeholder="请输入内容" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">提交</button>
+</form>
+<script>
+    $.fn.jAlert.defaults.closeOnClick = true;
+    $("form").submit(function (ev) {
+        ev.preventDefault()
+        $.post('/answer/{{id}}', $(this).serialize(), function (res) {
+            if (res.code == 'success') {
+                $.jAlert({
+                    'content': res.message,
+                });
+            } else {
+                $.jAlert({
+                    'content': res.message,
+                    'theme': 'red'
+                });
+            }
+        })
+    });
+
+</script>

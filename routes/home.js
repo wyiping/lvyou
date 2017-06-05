@@ -57,20 +57,4 @@ router.get('/detail/:id', (req, res) => {
     })
 })
 
-// 留言板
-router.get('/contact', (req, res) => {
-    db.Contact.find((err, data) => {
-        console.log(data)
-        res.render('detail/contact', { contact: data })
-    })
-})
-router.post('/contact', (req, res) => {
-    new db.Contact(req.body).save(err => {
-        if (err) {
-            res.json({ code: 'error', message: '提交失败,系统出错' })
-        } else {
-            res.json({ code: 'success', message: '提交成功' })
-        }
-    })
-})
 module.exports = router;

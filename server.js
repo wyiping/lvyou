@@ -19,5 +19,7 @@ app.use('/', require('./routes/home'))
 // 游记路由
 app.use('/notes', require('./routes/notes'))
 
+// 留言路由
+app.use('/', require('./routes/contact'))
 // 监听3000端口
 app.listen(3000, () => console.log('Server runing at port 3000.'))
