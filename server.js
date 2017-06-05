@@ -8,6 +8,7 @@ app.use('/user', require('./routes/user'))
 // 管理员路由
 app.use('/admin', require('./routes/admin'))
 app.use('/admin', require('./routes/back/scenery'))
+app.use('/admin/contact', require('./routes/back/contact'))
 
 // 导游路由
 app.use('/guide', require('./routes/guide'))

@@ -1,0 +1,33 @@
+<div class="pageheader">
+    <h1 class="pagetitle">留言列表</h1>
+    <div class="contentwrapper">
+        <ul class="commentlist nomargin">
+            {{each contact as c}}
+            <li>
+                <div class="commentcontent">
+                    <div class="top">
+                        <a href="javascript:void(0)" class="user">{{c.name}}</a>
+                    </div>
+                    <!--top-->
+                    <div class="text">{{c.comments}}</div>
+                    {{each c.answer as answer}}
+                    <li style="padding-left: 40px;">
+                        <div class="commentcontent">
+                            <div class="top">
+                                <a href="javascript:void(0)" class="user">{{answer.name}}</a>
+                            </div>
+                            <!--top-->
+                            <div class="text">{{answer.comments}}</div>
+                            <!--text-->
+                        </div>
+                        <!--updatecontent-->
+                    </li>
+                    {{/each}}
+                    <!--text-->
+                </div>
+                <!--updatecontent-->
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
