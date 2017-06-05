@@ -23,7 +23,7 @@
                 {{each notes as n}}
                 <div class="media">
                     <div class="media-body">
-                        <h4 class="media-heading">{{n.title}} <i class="glyphicon glyphicon-trash" onclick="del('{{n.id}}')" style="cursor: pointer;"></i></h4>
+                        <h4 class="media-heading">{{n.title}}</h4>
                         <p>{{n.content}}</p>
                     </div>
                 </div>
@@ -38,21 +38,7 @@
         </div>
         {{/if}}
     </div>
-    {{include 'footer'}} {{if notes.length > 0}}
-    <script>
-        function del(id) {
-            $.post('/user/notes/del/' + id, function (res) {
-                $.jAlert({
-                    'content': res.message,
-                    'closeOnClick': true,
-                    'onClose': function (alert) {
-                        window.location.href = '/user/notes/{{notes[0].user.id}}';
-                    }
-                });
-            })
-        }
-    </script>
-    {{/if}}
+    {{include 'footer'}}
 </body>
 
 </html>

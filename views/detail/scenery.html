@@ -87,6 +87,7 @@
     </script>
     <!--添加游记-->
     <script>
+        $.fn.jAlert.defaults.closeOnClick = true;
         function notes(t) {
             if (user) {
                 var href = $(t).attr('data-href') + user._id;
