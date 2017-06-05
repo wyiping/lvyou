@@ -56,15 +56,24 @@ router.get('/sceneries/(:page)?/(:pageSize)?', (req, res) => {
     var pageSize = req.params.pageSize;
     pageSize = pageSize || 5;
     pageSize = parseInt(pageSize);
-
-    db.Scenery.find().count((err, total) => {
+    var filter = {};
+    var search = req.query.search;
+    if (search) {
+        search = search.trim();
+        if (search.length > 0) {
+            filter.name = {
+                '$regex': `.*${search}.*?`
+            }
+        }
+    }
+    db.Scenery.find(filter).count((err, total) => {
         if (err) {
             // err
         } else {
             var pageCount = Math.ceil(total / pageSize);
             page = page > pageCount ? pageCount : page;
             page = page < 1 ? 1 : page;
-            db.Scenery.find().sort().skip((page - 1) * pageSize).limit(pageSize).exec((err, data) => {
+            db.Scenery.find(filter).sort().skip((page - 1) * pageSize).limit(pageSize).exec((err, data) => {
                 res.render('admin/sceneries', {
                     page, pageCount, pageSize, pages: getPages(page, pageCount),
                     sceneries: data.map(m => {
