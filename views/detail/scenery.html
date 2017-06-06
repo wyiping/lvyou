@@ -116,7 +116,10 @@
 				$.post(href, $('form').serialize(), function (res) {
 					if (res.code == 'success') {
 						$.jAlert({
-							'content': res.message
+							'content': res.message,
+                            'onClose': function (alert) {
+                                location.reload();
+                            }
 						})
 					} else {
 						$.jAlert({

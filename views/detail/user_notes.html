@@ -58,8 +58,8 @@
                 $.jAlert({
                     'content': res.message,
                     'closeOnClick': true,
-                    'onClose': function (alert) {
-                        window.location.href = '/user/notes/'+user._id;
+                    'onClose': function () {
+                        location.reload();
                     }
                 });
             })
