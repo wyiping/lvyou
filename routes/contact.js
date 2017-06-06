@@ -11,6 +11,7 @@ router.get('/contact', (req, res) => {
     })
 })
 router.post('/contact', (req, res) => {
+    req.body.createTime = new Date();
     new db.Contact(req.body).save(err => {
         if (err) {
             res.json({ code: 'error', message: '提交失败,系统出错' })

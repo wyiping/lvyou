@@ -73,7 +73,8 @@ var ContactSchema = new Schema({
     answer: [{
         name: String,
         comments: String
-    }]
+    }],
+    createTime: Date
 })
 var Contact = mongoose.model('contact', ContactSchema)
 
