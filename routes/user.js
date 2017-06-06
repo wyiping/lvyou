@@ -59,13 +59,6 @@ router.get('/logout', (req, res) => {
     res.render('home')
 })
 
-// 会员中心
-router.get('/info/:id', (req, res) => {
-    db.User.findById(req.params.id, (err, data) => {
-        res.render('detail/user', { user: data })
-    })
-})
-
 // 用户编辑
 router.get('/edit/:id', (req, res) => {
     db.User.findById(req.params.id, (err, data) => {
