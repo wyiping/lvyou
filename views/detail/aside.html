@@ -1,6 +1,6 @@
 <div class="widget search">
     <form role="form">
-        <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
+        <input type="text" class="form-control search_box" id="search" autocomplete="off" placeholder="输入景点名称">
     </form>
 </div>
 <!--/.search-->
@@ -67,3 +67,21 @@
     </ul>
 </div>
 <!--/.tags-->
+
+<script>
+    var flag; // 用于标识延时执行keyup事件
+    var search = $('#search').val(); // 搜索内容
+    // 搜索
+    function Search() {
+        clearTimeout(flag);
+        flag = setTimeout(function () {
+            search = $('#search').val();
+            window.location.href = '/introduce/list/1?search=' + $('#search').val();
+        }, 300)
+    }
+    // 搜索框输入内容是触发search()函数
+    $('#search').keyup(function () {
+        Search();
+    });
+
+</script>

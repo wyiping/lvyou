@@ -59,14 +59,25 @@ router.get('/introduce/list/(:page)?', (req, res) => {
     var page = req.params.page;
     page = page || 1;
     page = parseInt(page);
-    db.Scenery.find().count((err, count) => {
+
+    var filter = {};
+    var search = req.query.search;
+    if (search) {
+        search = search.trim();
+        if (search.length > 0) {
+            filter.name = {
+                '$regex': `.*${search}.*?`
+            }
+        }
+    }
+    db.Scenery.find(filter).count((err, count) => {
         if (err) {
 
         } else {
             var pageCount = Math.ceil(count / 6);
             page = page > pageCount ? pageCount : page;
             page = page < 1 ? 1 : page;
-            db.Scenery.find().skip((page - 1) * 6).sort().limit(6).exec((err, data) => {
+            db.Scenery.find(filter).skip((page - 1) * 6).sort().limit(6).exec((err, data) => {
                 res.render('detail/introduce', {
                     page, pageCount, pages: getPages(page, pageCount),
                     sceneries: data.map(m => {
