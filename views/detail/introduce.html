@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="石雯茜">
+    <title>景点列表</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="/js/plugins/jquery.js"></script>
+    <script src="/js/plugins/bootstrap.js"></script>
+</head>
+
+<body>
+    {{include 'header'}}
+    <section class="container">
+        <div class="center">
+            <h2>INTRODUCE</h2>
+        </div>
+        <div class="blog">
+            <div class="row">
+                <div class="col-md-8">
+                    {{each sceneries as scenery}}
+                    <div class="blog-item">
+                        <div class="col-md-12">
+                            <div id="pic" class="carousel slide main-pic-wrap" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    {{each scenery.picList as pic i}}
+                                    <li data-target="#pic" data-slide-to="{{i}}" {{if i==0 }}class="active" {{/if}}></li>
+                                    {{/each}}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {{each scenery.picList as pic i}}
+                                    <div class="item {{if i==0}} active {{/if}}">
+                                        <img src="/images/scenery/{{pic}}">
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <a class="left carousel-control" href="#pic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                <a class="right carousel-control" href="#pic" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 blog-content">
+                                <h2>{{scenery.name}}</h2>
+                                <p>{{scenery.summary}}</p>
+                                <a class="btn btn-primary readmore" href="/detail/{{scenery.id}}">查看</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    <!--/.blog-item-->
+                    <ul class="pagination pagination-lg">
+                        <li><a href="/introduce/list/{{page-1}}">←</a></li>
+                        {{each pages as p}}
+                        <li {{if page == p}} class="active" {{/if}}><a href="/introduce/list/{{p}}">{{p}}</a></li>
+                        {{/each}}
+                        <li><a href="/introduce/list/{{page+1}}">→</a></li>
+                    </ul><!--/.pagination-->
+                </div>
+                <!--/.col-md-8-->
+                
+                <aside class="col-md-4">
+                    {{include 'aside'}}
+                </aside>
+
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.blog-->
+    </section>
+</body>
+</html>
