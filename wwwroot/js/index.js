@@ -77,9 +77,7 @@ $(function(){
                                     username = form.find('input[name="username"]').val(),
                                     petname = form.find('input[name="petname"]').val(),
                                     email = form.find('input[name="email"]').val(),
-                                    pass = form.find('input[type="password"]').map(function(){
-                                        return $(this).val()
-                                    });
+                                    pass = form.find('input[name="password"]').val();
                                     if( typeof username == 'undefined' || username == '' )
                                     {
                                         $.jAlert({
