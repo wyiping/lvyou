@@ -1,31 +1,35 @@
-<header class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!--navbar-header-->
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target="#nav">
+<header id="header">
+    <nav class="navbar navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-            <a href="" class="navbar-brand">Road trip</a>
+                <a class="navbar-brand" href="/"><img src="/images/default/logo.png" alt="logo"></a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">首页</a></li>
+                    <li class="dropdown" id="user" style="display:none;">
+                        <a href="#" class="drop-toggle" data-toggle="dropdown"><span class="petname"></span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="" class="js_user_href">个人中心</a></li>
+                            <li><a href="/user/logout">退出</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)" id="login">登录</a></li>
+                </ul>
+            </div>
         </div>
-        <!--navbar-collapse-->
-        <div class="navbar-collapse collapse" id="nav">
-            <ul class="navbar-nav nav navbar-right">
-                <li><a href="/">首页</a></li>
-                <li class="js-notes dropdown"></li>
-                <li><a href="javascript:void(0)" id="login">登录</a></li>
-                <li class="dropdown" id="user" style="display:none;">
-                    <a href="#" class="drop-toggle" data-toggle="dropdown"><span class="petname"></span> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="js_user_href">个人中心</a></li>
-                        <li><a href="/user/logout">退出</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+        <!--/.container-->
+    </nav>
+    <!--/nav-->
 </header>
+<!--/header-->
 <script src="/js/plugins/jAlert.min.js"></script>
 <link rel="stylesheet" href="/css/jAlert.css" />
 <script src="/js/plugins/jquery.cookie.js"></script>

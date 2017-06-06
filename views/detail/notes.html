@@ -1,0 +1,16 @@
+{{each notes as note}}
+<div class="media comment_section">
+    <div class="media-body post_reply_comments">
+        <h3>{{note.title}}</h3>
+        <h4>{{note.createTime}}</h4>
+        <p>{{note.content}}</p>
+    </div>
+</div>
+{{/each}}
+{{if notes == 0}}
+<div class="media comment_section">
+    <div class="media-body post_reply_comments">
+        <h3>还没有游记。</h3>
+    </div>
+</div> 
+{{/if}}

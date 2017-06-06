@@ -24,7 +24,7 @@ router.get('/list', (req, res) => {
 
 router.get('/:sid', (req, res) => {
     db.Notes.find({ scenery: req.params.sid }).populate("user").exec((err, data) => {
-        res.render('detail/scenery_notes', { notes: data })
+        res.render('detail/notes', { notes: data })
     })
 })
 module.exports = router;
