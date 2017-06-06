@@ -41,6 +41,14 @@
                         </div>
                     </div>
                     {{/each}}
+
+                    <ul class="pagination pagination-lg">
+                        <li><a href="/contact/{{page-1}}">←</a></li>
+                        {{each pages as p}}
+                        <li {{if page == p}} class="active" {{/if}}><a href="/contact/{{p}}">{{p}}</a></li>
+                        {{/each}}
+                        <li><a href="/contact/{{page+1}}">→</a></li>
+                    </ul><!--/.pagination-->
                     <div id="contact-page clearfix">
                         <div class="status alert alert-success" style="display: none"></div>
                         <div class="message_heading">
@@ -107,7 +115,7 @@
                     $.jAlert({
                         'content': res.message,
                         'onClose': function(){
-                            window.location.href = '/contact';
+                            window.location.href = '/contact/1';
                         }
                     });
                 } else {
