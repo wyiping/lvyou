@@ -2406,6 +2406,16 @@ ul.sidebar-gallery {
   z-index: 99999;
 }
 
+.post_reply_comments span {
+  top: 15px;
+  position: absolute;
+  right: 30px;
+  background: #c52d2f;
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
 .post_reply_comments h2 a{
  
 }

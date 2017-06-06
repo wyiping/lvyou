@@ -25,7 +25,8 @@
                 <li class="dropdown" id="petname" style="display:none;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="" class="js_user_href">个人中心</a></li>
+                        <li><a href="" class="js_user_edit">修改资料</a></li>
+                        <li><a href="" class="js_user_notes">我的游记</a></li>
                         <li><a href="/user/logout">注销</a></li>
                     </ul>
                 </li>
@@ -43,7 +44,8 @@
         user = $.parseJSON(user.substr(2));
         $('#login').hide();
         $('#petname').children('a').html(user.petname);
-        $('.js_user_href').attr('href', '/user/info/' + user._id)
+        $('.js_user_notes').attr('href', '/user/notes/' + user._id);
+        $('.js_user_edit').attr('href', '/user/edit/' + user._id);
         $('#petname').show();
     }
 </script>

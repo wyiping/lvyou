@@ -18,7 +18,8 @@
                     <li class="dropdown" id="user" style="display:none;">
                         <a href="#" class="drop-toggle" data-toggle="dropdown"><span class="petname"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="" class="js_user_href">个人中心</a></li>
+                            <li><a href="" class="js_user_edit">修改资料</a></li>
+                            <li><a href="" class="js_user_notes">我的游记</a></li>
                             <li><a href="/user/logout">退出</a></li>
                         </ul>
                     </li>
@@ -42,7 +43,7 @@
         $('#login').hide();
         $('.petname').html(user.petname);
         $('#user').show();
-        $('.js_add').data('user', user._id);
-        $('.js_user_href').attr('href', '/user/info/' + user._id)
+        $('.js_user_notes').attr('href', '/user/notes/' + user._id);
+        $('.js_user_edit').attr('href', '/user/edit/' + user._id)
     }
 </script>

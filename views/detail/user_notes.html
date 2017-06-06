@@ -6,48 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="author" content="石雯茜">
-    <title>游记</title>
+    <title>我的游记</title>
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/detail.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <script src="/js/plugins/jquery.js"></script>
     <script src="/js/plugins/bootstrap.js"></script>
 </head>
 
 <body>
     {{include 'header'}}
-    <div class="main">
-        {{if notes.length > 0}}
-        <div class="container">
-            <div class="col-md-3">
-                <nav>
-                    <ul class="nav nav-stacked">
-                        <li class=""><a href="/user/info/{{notes[0].user.id}}">查看资料</a></li>
-                        <li class=""><a href="/user/edit/{{notes[0].user.id}}">修改资料</a></li>
-                        <li class=""><a href="/user/notes/{{notes[0].user.id}}">查看游记</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-9">
-                <h1 class="page-header">游记</h1>
-                {{each notes as n}}
-                <div class="media">
-                    <div class="media-body">
-                        <h4 class="media-heading">{{n.title}} <i class="glyphicon glyphicon-trash" onclick="del('{{n.id}}')" style="cursor: pointer;"></i></h4>
-                        <p>{{n.content}}</p>
+    <section class="container">
+        <div class="center">
+            <h2>我的游记</h2>
+        </div>
+        <div class="blog">
+            <div class="row">
+                <div class="col-md-8">
+                    {{each notes as note}}
+                    <div class="media comment_section">
+                        <div class="media-body post_reply_comments">
+                            <h3>{{note.title}}</h3>
+                            <h4>{{note.createTime}}</h4>
+                            <p>{{note.content}}</p>
+                            <span onclick="del('{{note.id}}')">删除</span>
+                        </div>
                     </div>
+                    {{/each}} {{if notes == 0}}
+                    <div class="media comment_section">
+                        <div class="media-body post_reply_comments">
+                            <h3>还没有游记。</h3>
+                        </div>
+                    </div>
+                    {{/if}}
                 </div>
-                {{/each}}
+                <!--/.col-md-8-->
+
+                <aside class="col-md-4">
+                    {{include 'aside'}}
+                </aside>
+
             </div>
+            <!--/.row-->
         </div>
-        {{else}}
-        <div class="container">
-            <center>
-                <h2>无游记</h2>
-            </center>
-        </div>
-        {{/if}}
-    </div>
-    {{include 'footer'}} {{if notes.length > 0}}
+        <!--/.blog-->
+
+    </section>
+    {{include 'footer'}}
     <script>
         function del(id) {
             $.post('/user/notes/del/' + id, function (res) {
@@ -55,13 +59,12 @@
                     'content': res.message,
                     'closeOnClick': true,
                     'onClose': function (alert) {
-                        window.location.href = '/user/notes/{{notes[0].user.id}}';
+                        window.location.href = '/user/notes/'+user._id;
                     }
                 });
             })
         }
     </script>
-    {{/if}}
 </body>
 
 </html>
