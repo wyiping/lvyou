@@ -6,28 +6,65 @@
             <li>
                 <div class="commentcontent">
                     <div class="top">
-                        <a href="javascript:void(0)" class="user">{{c.name}}</a>
+                        <a href="javascript:void(0)" class="user">{{c.name}}</a><a href="/admin/contact/del/{{c.id}}" style="float:right;">删除</a>
                     </div>
                     <!--top-->
                     <div class="text">{{c.comments}}</div>
-                    {{each c.answer as answer}}
-                    <li style="padding-left: 40px;">
-                        <div class="commentcontent">
-                            <div class="top">
-                                <a href="javascript:void(0)" class="user">{{answer.name}}</a>
-                            </div>
-                            <!--top-->
-                            <div class="text">{{answer.comments}}</div>
-                            <!--text-->
-                        </div>
-                        <!--updatecontent-->
-                    </li>
-                    {{/each}}
                     <!--text-->
                 </div>
                 <!--updatecontent-->
             </li>
             {{/each}}
         </ul>
+        <div class="dataTables_paginate paging_full_numbers" id="dyntable_paginate">
+            <span class="first paginate_button paginate_button_disabled" id="dyntable_first" onclick="getPage(1)">第一页</span>
+            <span class="previous paginate_button paginate_button_disabled" id="dyntable_previous" onclick="getPage('{{page -1}}')">上一页</span>
+            <span>
+                {{each pages as p}}
+                    <span class="{{if p == page}}paginate_active{{else}}paginate_button{{/if}}" onclick="getPage('{{p}}')">{{p}}</span>
+                {{/each}}
+            </span>
+            <span class="next paginate_button" id="dyntable_next" onclick="getPage('{{page + 1}}')">下一页</span>
+            <span class="last paginate_button" id="dyntable_last" onclick="getPage('{{pageCount}}')">最后一页</span>
+        </div>
     </div>
 </div>
+<script>
+    $.fn.jAlert.defaults.closeOnClick = true;
+    function getPage(page){
+        LoadUrl('.centercontent','/admin/contact/list/'+page);
+    }
+    $('.commentlist a').click(function(){
+        var t = $(this)
+        // jAlert插件
+        $.jAlert({
+        'type':'confirm',
+        'confirmQuestion':'确认删除？',
+        'confirmBtnText':'确认',
+        'denyBtnText':'取消',
+        'onConfirm': function(e){
+                        $.get(t.attr("href"),function(res){
+                            if(res.code == 'success'){
+                                $.jAlert({
+                                    'content': "删除成功",
+                                    'theme': 'green',
+                                });
+                                getPage(1);
+                            }else{
+                                $.jAlert({
+                                    'content': "删除失败",
+                                    'content': res.message,
+                                    'theme':'red'
+                                });
+                            }
+                        })
+                        return false;
+                    },
+        'onDeny':function(e){
+            return false;
+        }
+    })
+        
+        return false;
+    })
+</script>
