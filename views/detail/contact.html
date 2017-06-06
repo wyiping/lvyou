@@ -23,6 +23,7 @@
         <div class="blog">
             <div class="row">
                 <div class="col-md-8">
+                    {{if contact.length > 0}}
                     {{each contact as c}}
                     <div class="media comment_section">
                         <div class="media-body post_reply_comments">
@@ -49,6 +50,7 @@
                         {{/each}}
                         <li><a href="/contact/{{page+1}}">→</a></li>
                     </ul><!--/.pagination-->
+                    {{/if}}
                     <div id="contact-page clearfix">
                         <div class="status alert alert-success" style="display: none"></div>
                         <div class="message_heading">

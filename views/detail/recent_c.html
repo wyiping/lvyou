@@ -1,0 +1,15 @@
+{{each contact as c}}
+<div class="single_comments">
+    <img src="/images/default/avatar.png" alt="" />
+    <p>{{c.comments}}</p>
+    <div class="entry-meta small muted">
+        <span>By {{c.name}}</span>
+    </div>
+</div>
+{{/each}}
+{{if contact == 0}}
+<div class="single_comments">
+    <p>无留言</p>
+    <a href="/contact/1">去留言</a>
+</div>
+{{/if}}

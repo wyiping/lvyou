@@ -15,6 +15,14 @@ function getPages(page, pageCount) {
     }
     return pages;
 }
+
+// 最新留言
+router.get('/recent', (req, res) => {
+    db.Contact.find().sort({ createTime: -1 }).limit(3).exec((err, data) => {
+        res.render('detail/recent_c', { contact: data })
+    })
+})
+
 // 留言板
 router.get('/contact/(:page)?', (req, res) => {
     var page = req.params.page;
@@ -65,4 +73,5 @@ router.post('/answer/:id', (req, res) => {
         }
     })
 })
+
 module.exports = router;

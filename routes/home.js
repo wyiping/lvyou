@@ -106,4 +106,10 @@ router.get('/detail/:id', (req, res) => {
     })
 })
 
+// 热门景点
+router.get('/hot', (req, res) => {
+    db.Scenery.find().limit(5).exec((err, data) => {
+        res.render('detail/hot', { sceneries: data })
+    })
+})
 module.exports = router;

@@ -1962,7 +1962,7 @@ textarea#message{
 }
 
 .single_comments {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
 .single_comments img {
@@ -1973,6 +1973,11 @@ textarea#message{
 
 .single_comments p {
   margin-bottom: 0;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient: vertical;
 }
 
 .widget .entry-meta span {
