@@ -24,23 +24,8 @@
                 <div class="col-md-8">
                     {{each sceneries as scenery}}
                     <div class="blog-item">
-                        <div class="col-md-12">
-                            <div id="pic" class="carousel slide main-pic-wrap" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    {{each scenery.picList as pic i}}
-                                    <li data-target="#pic" data-slide-to="{{i}}" {{if i==0 }}class="active" {{/if}}></li>
-                                    {{/each}}
-                                </ol>
-                                <div class="carousel-inner">
-                                    {{each scenery.picList as pic i}}
-                                    <div class="item {{if i==0}} active {{/if}}">
-                                        <img src="/images/scenery/{{pic}}">
-                                    </div>
-                                    {{/each}}
-                                </div>
-                                <a class="left carousel-control" href="#pic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                <a class="right carousel-control" href="#pic" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                            </div>
+                        <div class="main-pic-wrap">
+                            <img class="img-responsive img-blog" src="/images/scenery/{{scenery.picList[0]}}" width="100%">
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 blog-content">

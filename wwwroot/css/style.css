@@ -748,6 +748,9 @@ img.readmore {
     letter-spacing: 4px;
     text-align: center;
 }
+.introduce-head h3 a{
+	text-decoration: none;
+}
 .introduce-head{
 	margin-top: 4em;
 	margin-bottom:4em;
