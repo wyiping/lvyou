@@ -26,8 +26,8 @@
                     <tr>
                         <th class="head0" style="width: 10%">名称</th>
                         <th class="head1">地址</th>
-                        <th class="head0" style="width: 35%">summary</th>
-                        <th class="head0" style="width: 35%">content</th>
+                        <th class="head0" style="width: 35%">简介</th>
+                        <!--<th class="head0" style="width: 35%">content</th>-->
                         <th class="head1">编辑</th>
                     </tr>
                 </thead>
@@ -35,8 +35,8 @@
                     <tr>
                         <th class="head0">名称</th>
                         <th class="head1">地址</th>
-                        <th class="head0">summary</th>
-                        <th class="head0">content</th>
+                        <th class="head0">简介</th>
+                        <!--<th class="head0">content</th>-->
                         <th class="head1">编辑</th>
                     </tr>
                 </tfoot>
@@ -47,7 +47,7 @@
                         <td class="sorting_1">{{s.name}}</td>
                         <td class="address">{{s.address}}</td>
                         <td class="center">{{s.summary}}</td>
-                        <td class="center">{{s.content}}</td>
+                        <!--<td class="center">{{s.content}}</td>-->
                         <td><a href="javascript:void(0)" onclick="LoadUrl('.centercontent','/admin/scenery/edit/{{s.id}}')">修改</a>
                             <a href="javascript:void(0)" onclick="delScenery('/admin/scenery/del/{{s.id}}')">删除</a>
                         </td>
